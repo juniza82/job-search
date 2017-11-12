@@ -23,8 +23,8 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/font.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/search.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/responsive.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/js/jquery-1.12.4.min.js">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/js/search.js">
+<script src="${pageContext.request.contextPath}/web/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/search.js"></script>
 </head>
 <body id="main">	
 <ul id="skipnavi">
@@ -56,6 +56,7 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                         <label for="topQuery" class="hidden">검색어 입력</label>
                         <form id="searchForm" action="${pageContext.request.contextPath}/app/search.do" method="get">
                         	<input type="text" id="topQuery" name="query" title="통합검색" style="ime-mode:active;" class="input" value="${query}">
+                        	<input type="hidden" id="collection" name="collection" value="${collection}"/>
                         	<input type="image" id="topSearch" name="topSearch" src="${pageContext.request.contextPath}/web/images/common/btn_search.gif" alt="검색하기" class="btn_search">
                         </form>
                     </fieldset>
@@ -70,12 +71,12 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
         	<!--탭메뉴-->
             <div class="category">
                 <ul>
-                    <li class="on"><a href="#">통합검색</a></li>
-                    <li><a href="#">채용정보</a></li>
-                    <li><a href="#">인재정보</a></li>
-                    <li><a href="#">교육훈련정보</a></li>
-                    <li><a href="#">지원사업안내</a></li>
-                    <li><a href="#">일자리뉴스</a></li>
+                    <li class="on"><a href="ALL">통합검색</a></li>
+                    <li><a href="employmentInformation">채용정보</a></li>
+                    <li><a href="recruitInformation">인재정보</a></li>
+                    <li><a href="educationTraining">교육훈련정보</a></li>
+                    <li><a href="localBusiness">지원사업안내</a></li>
+                    <li><a href="jobNews">일자리뉴스</a></li>
                 </ul>
             </div>
             <!--//탭메뉴-->
@@ -89,12 +90,12 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                     <div class="srchArea total">
                         <h2>통합검색 <span>(총 ${totalCount}건)</span></h2>
                         <div class="total_box">
-                            <ul>
-                                <li><a href="#" title="본문결과 이동">채용정보(<c:out value="${collectionCountMap['employmentInformationCount']}"/>)</a></li>
-                                <li><a href="#" title="본문결과 이동">인재정보(<c:out value="${collectionCountMap['recruitInformationCount']}"/>)</a></li>
-                                <li><a href="#" title="본문결과 이동">교육훈련정보(<c:out value="${collectionCountMap['educationTrainingCount']}"/>)</a></li>
-                                <li><a href="#" title="본문결과 이동">지원사업안내(<c:out value="${collectionCountMap['localBusinessCount']}"/>)</a></li>
-                                <li><a href="#" title="본문결과 이동">일자리뉴스(<c:out value="${collectionCountMap['jobNewsCount']}"/>)</a></li>
+                            <ul id="totalAreaUl">
+                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="employmentInformation" title="본문결과 이동">채용정보(<c:out value="${collectionCountMap['employmentInformationCount']}"/>)</a></li>
+                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="recruitInformation" title="본문결과 이동">인재정보(<c:out value="${collectionCountMap['recruitInformationCount']}"/>)</a></li>
+                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="educationTraining" title="본문결과 이동">교육훈련정보(<c:out value="${collectionCountMap['educationTrainingCount']}"/>)</a></li>
+                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="localBusiness" title="본문결과 이동">지원사업안내(<c:out value="${collectionCountMap['localBusinessCount']}"/>)</a></li>
+                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="jobNews" title="본문결과 이동">일자리뉴스(<c:out value="${collectionCountMap['jobNewsCount']}"/>)</a></li>
                             </ul>
                         </div>
                     </div>
