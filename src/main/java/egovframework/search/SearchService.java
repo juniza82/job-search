@@ -32,7 +32,7 @@ public class SearchService {
 	) {
 		
 		List<String> collectionNameList = new ArrayList<>(Arrays.asList(collections));
-		logger.info(String.format("[SEARCH] PARAM DEBUG MESSAGE => %s,%s,%s,%s", query, collections, startCount, viewResultCount));
+		logger.info(String.format("[SEARCH::SERVICE] PARAM DEBUG MESSAGE => %s,%s,%s,%s", query, collections, startCount, viewResultCount));
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// 검색 조건 셋팅, 질의, 디버그 
@@ -46,7 +46,7 @@ public class SearchService {
 		wnsearch.search(query, IS_REALTIME_KEYWORD, WNDefine.CONNECTION_CLOSE, USE_SUGGESTED_QUERY);
 		
 		String debugMsg = wnsearch.printDebug() != null ? wnsearch.printDebug().trim() : "";
-		logger.info(String.format("[SEARCH] CONDITION DEBUG MESSAGE => %s", debugMsg));
+		logger.info(String.format("[SEARCH::SERVICE] CONDITION DEBUG MESSAGE => %s", debugMsg));
 
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ public class SearchService {
 			IntStream.range(0, thisTotalCount).forEach((int index) -> {
 				
 				List<String> searchResultFieldList = wnsearch.getSearchResultField(collection);
-				//if(index == 0) { logger.info(String.format("[SEARCH] result field is => %s", searchResultFieldList)); }
+				//if(index == 0) { logger.info(String.format("[SEARCH::SERVICE] result field is => %s", searchResultFieldList)); }
 				
 				Map<String, String> documentMap = new HashMap<>();
 				searchResultFieldList.stream().forEach((String field) -> {
@@ -77,14 +77,14 @@ public class SearchService {
 				documentMapList.add(documentMap);				
 			});
 			collectionResultMap.put(collection + "Result", documentMapList);
-			logger.info(String.format("[SEARCH] collection result count is => collection:%s,count:%s,thisTotalCount:%s", collection, count, thisTotalCount));
+			logger.info(String.format("[SEARCH::SERVICE] collection result count is => collection:%s,count:%s,thisTotalCount:%s", collection, count, thisTotalCount));
 			
 		});
 		
 		// 전체 결과
 		int totalCount = collectionCountMap.entrySet().stream().mapToInt(map -> map.getValue()).sum();
 		
-		logger.info(String.format("[SEARCH] RESULT DEBUG MESSAGE => %s, %s", totalCount, collectionCountMap));
+		logger.info(String.format("[SEARCH::SERVICE] RESULT DEBUG MESSAGE => %s, %s", totalCount, collectionCountMap));
 		if ( wnsearch != null ) {
 			wnsearch.closeServer();
 		}
