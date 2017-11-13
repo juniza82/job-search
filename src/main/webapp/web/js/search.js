@@ -1,3 +1,13 @@
+function otherKeywordClickEventBinding() {
+	$('.otherKeyword').click(function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		var query = $(this).attr('href');
+		$('#query').val(query);
+		$('#searchForm').submit();
+	});
+}
+
 $(document).ready(function() {
     
 	$('#topSearch').click(function() {

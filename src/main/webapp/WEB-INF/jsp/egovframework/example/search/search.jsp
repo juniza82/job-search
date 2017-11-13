@@ -71,12 +71,12 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
         	<!--탭메뉴-->
             <div class="category">
                 <ul>
-                    <li class="on"><a href="ALL">통합검색</a></li>
-                    <li><a href="employmentInformation">채용정보</a></li>
-                    <li><a href="recruitInformation">인재정보</a></li>
-                    <li><a href="educationTraining">교육훈련정보</a></li>
-                    <li><a href="localBusiness">지원사업안내</a></li>
-                    <li><a href="jobNews">일자리뉴스</a></li>
+                    <li class="totalAreaUlLi<c:if test="${collection eq 'ALL'}"> on</c:if>"><a href="ALL">통합검색</a></li>
+                    <li class="totalAreaUlLi<c:if test="${collection eq 'employmentInformation'}"> on</c:if>"><a class="totalAreaUlLiA" href="employmentInformation">채용정보</a></li>
+                    <li class="totalAreaUlLi<c:if test="${collection eq 'recruitInformation'}"> on</c:if>"><a class="totalAreaUlLiA" href="recruitInformation">인재정보</a></li>
+                    <li class="totalAreaUlLi<c:if test="${collection eq 'educationTraining'}"> on</c:if>"><a class="totalAreaUlLiA" href="educationTraining">교육훈련정보</a></li>
+                    <li class="totalAreaUlLi<c:if test="${collection eq 'localBusiness'}"> on</c:if>"><a class="totalAreaUlLiA" href="localBusiness">지원사업안내</a></li>
+                    <li class="totalAreaUlLi<c:if test="${collection eq 'jobNews'}"> on</c:if>"><a class="totalAreaUlLiA" href="jobNews">일자리뉴스</a></li>
                 </ul>
             </div>
             <!--//탭메뉴-->
@@ -121,7 +121,7 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                                     <span class="db bg_none"><strong>키워드 : </strong>${entry['KEYWORD']}</span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="tar more"><a href="#">검색결과 더보기</a></dd>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></dd>
                                 </c:if>
                             </dl>
                         </div>
@@ -129,158 +129,145 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                     </div>
                     <!--//채용정보-->
                     </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['recruitInformationCount'] > 0) || collection eq 'recruitInformationCount'}">
+                    <c:if test="${(collection eq 'ALL' && collectionCountMap['recruitInformationCount'] > 0) || collection eq 'recruitInformation'}">
                     <!--인재정보-->
                     <div class="srchArea">
                         <h2>인재정보 <span>(총 <c:out value="${collectionCountMap['recruitInformationCount']}"/>건)</span></h2>
+                        <c:forEach var="entry" items="${collectionResultMap['recruitInformationResult']}" varStatus="status">
                         <div class="job_box">
                         	<dl>
                             	<dt>
-                                	<a href="#"><!--성명-->최○○ <span class="font_s3">(남, 만 31세)</span></a>
+                                	<a href="#"><!--성명-->${entry['USER_NM']}<span class="font_s3">(${entry['SEX']}, 만 ${entry['AGE']}세)</span></a>
                                     <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span>
                                 </dt>
                                 <dd>
-                                	<p><!--이력서제목-->신입 엔지니어 지원합니다.</p>
-                                    <span><strong>희망직종 : </strong>2017-10-30(월)</span>
-                                	<span><strong>경력 : </strong>신입 및 경력 2년이상</span>
-                                    <span><strong>학력 : </strong>학력무관</span>
-                                    <span><strong>희망고용형태 : </strong>정규직, 계약직</span>
-                                    <span class="bg_none"><strong>희망근무지 : </strong>순천시 전체, 고흥군 전체</span>
-                                    <span class="db bg_none"><strong>키워드 : </strong>엔지니어, 기록관</span>
+                                	<p><!--이력서제목-->${entry['TITLE']}</p>
+                                    <span><strong>희망직종 : </strong>${entry['HOPE_WORK_DETAIL']}(월)</span>
+                                	<span><strong>경력 : </strong>${entry['CAREER_YEAR']}, ${entry['CAREER_MONTH']}</span>
+                                    <span><strong>학력 : </strong>${entry['DEGREE']}</span>
+                                    <span><strong>희망고용형태 : </strong>${entry['HOPE_PAY_TYPE']}</span>
+                                    <span class="bg_none"><strong>희망근무지 : </strong>${entry['HOPE_LOCATION']}</span>
+                                    <span class="db bg_none"><strong>키워드 : </strong>${entry['KEYWORD']}</span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="tar more"><a href="#">검색결과 더보기</a></dd>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></dd>
                                 </c:if>
                             </dl>
                         </div>
+                        </c:forEach>
                     </div>
                     <!--//인재정보-->
                     </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['educationTrainingCount'] > 0) || collection eq 'educationTrainingCount'}">
+                    <c:if test="${(collection eq 'ALL' && collectionCountMap['educationTrainingCount'] > 0) || collection eq 'educationTraining'}">
                     <!--교육훈련정보-->
                     <div class="srchArea">
                         <h2>교육훈련 <span>(총 <c:out value="${collectionCountMap['educationTrainingCount']}"/>건)</span></h2>
+                        <c:forEach var="entry" items="${collectionResultMap['educationTrainingResult']}" varStatus="status">
                         <div class="job_box">
                         	<dl>
                             	<dt>
-                                	<a href="#"><!--교육훈련기관명-->전라남도평생교육진흥원</a>
+                                	<a href="#"><!--교육훈련기관명-->${entry['INSTITUTION_NAME']}</a>
                                 </dt>
                                 <dd>
-                                	<p><!--교육훈련명-->청년취업준비과정을 위한 자기소개서 작성요령</p>
-                                    <span><strong>모집기간 : </strong>2017-10-30(월)</span>
-                                	<span><strong>교육정원 : </strong>신입 및 경력 2년이상</span>
-                                    <span><strong>교육시간 : </strong>학력무관</span>
-                                    <span class="bg_none"><strong>교육장소 : </strong>정규직, 계약직</span>
+                                	<p><!--교육훈련명-->${entry['TITLE']}</p>
+                                    <span><strong>모집기간 : </strong>${entry['RECRUIT_END']}(월)</span>
+                                	<span><strong>교육정원 : </strong>${entry['EDU_MAX_COUNT']}</span>
+                                    <span><strong>교육시간 : </strong>${entry['EDU_TIME']}</span>
+                                    <span class="bg_none"><strong>교육장소 : </strong>${entry['LOCATION']}</span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="tar more"><a href="#">검색결과 더보기</a></dd>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></dd>
                                 </c:if>	
                             </dl>
                         </div>
+                        </c:forEach>
                     </div>
                     <!--//교육훈련정보-->
                     </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['localBusinessCount'] > 0) || collection eq 'localBusinessCount'}">
+                    <c:if test="${(collection eq 'ALL' && collectionCountMap['localBusinessCount'] > 0) || collection eq 'localBusiness'}">
                     <!--지원사업안내-->
                     <div class="srchArea">
                         <h2>지원사업안내 <span>(총 <c:out value="${collectionCountMap['localBusinessCount']}"/>건)</span></h2>
                         <div class="txt_box">
                         	<ul>
+                        		<c:forEach var="entry" items="${collectionResultMap['localBusinessResult']}" varStatus="status">
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">[공공근로사업]</span>
-                                        <a href="#"><strong>전라남도 공공근로사업에 대한 안내</strong></a>
-                                        <span class="fc_gray">2017-10-30</span>
-                                        <p class="txt_justify">저소득층 대상 일자리 창출, 청년실업 해소 및 지역 특성에 맞는 현안사업 추진을 위한 2015년도 공공 근로사업을 추진, 사업개시일 현재 만18세 이상인 근로능력자로서 가구소득이 최저생계비의 120% 이하(지역 사정에 따라 150%까지 가능)이면서 재산이 1억원 ...</p>
+                                    	<span class="mr3 font_s16">${entry['BOARD_ID']}</span>
+                                        <a href="#"><strong>${entry['TITLE']}</strong></a>
+                                        <span class="fc_gray">${entry['DATE']}</span>
+                                        <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
                                     <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span>
                                     <!--//1-->
                                 </li>
-                                <li>
-                                	<!--1-->
-                                    <div>
-                                        <span class="mr3 font_s16">[공공근로사업]</span>
-                                        <a href="#"><strong>전라남도 공공근로사업에 대한 안내</strong></a>
-                                        <span class="date">2017-10-30</span>
-                                        <p class="txt_justify">저소득층 대상 일자리 창출, 청년실업 해소 및 지역 특성에 맞는 현안사업 추진을 위한 2015년도 공공 근로사업을 추진, 사업개시일 현재 만18세 이상인 근로능력자로서 가구소득이 최저생계비의 120% 이하(지역 사정에 따라 150%까지 가능)이면서 재산이 1억원 ...</p>
-                                    </div>
-                                    <!--//1-->
-                                </li>
-                                <li>
-                                	<!--1-->
-                                    <div>
-                                        <span class="mr3 font_s16">[공공근로사업]</span>
-                                        <a href="#"><strong>전라남도 공공근로사업에 대한 안내</strong></a>
-                                        <span class="date">2017-10-30</span>
-                                        <p class="txt_justify">저소득층 대상 일자리 창출, 청년실업 해소 및 지역 특성에 맞는 현안사업 추진을 위한 2015년도 공공 근로사업을 추진, 사업개시일 현재 만18세 이상인 근로능력자로서 가구소득이 최저생계비의 120% 이하(지역 사정에 따라 150%까지 가능)이면서 재산이 1억원 ...</p>
-                                    </div>
-                                    <!--//1-->
-                                </li>
+                                </c:forEach>
                                 <c:if test="${status.last && collectionCountMap['localBusinessCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="tar more"><a href="#">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></dd>
                                 </c:if>
                             </ul>
                         </div>
                     </div>
                     <!--//지원사업안내-->
                     </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['jobNewsCount'] > 0) || collection eq 'jobNewsCount'}">
+                    <c:if test="${(collection eq 'ALL' && collectionCountMap['jobNewsCount'] > 0) || collection eq 'jobNews'}">
                     <!--일자리뉴스-->
                     <div class="srchArea">
                         <h2>일자리뉴스 <span>(총 <c:out value="${collectionCountMap['jobNewsCount']}"/>건)</span></h2>
                         <div class="txt_box">
                         	<ul>
+                        		<c:forEach var="entry" items="${collectionResultMap['jobNewsResult']}" varStatus="status">
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">[공지사항]</span>
-                                        <a href="#"><strong>전라남도 공공근로사업에 대한 안내</strong></a>
-                                        <span class="fc_gray">2017-10-30</span>
-                                        <p class="txt_justify">저소득층 대상 일자리 창출, 청년실업 해소 및 지역 특성에 맞는 현안사업 추진을 위한 2015년도 공공 근로사업을 추진, 사업개시일 현재 만18세 이상인 근로능력자로서 가구소득이 최저생계비의 120% 이하(지역 사정에 따라 150%까지 가능)이면서 재산이 1억원 ...</p>
+                                    	<span class="mr3 font_s16">>${entry['BOARD_ID']}</span>
+                                        <a href="#"><strong>${entry['TITLE']}제목이 노출정의 안됨</strong></a>
+                                        <span class="fc_gray">${entry['DATE']}</span>
+                                        <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
                                     <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span>
                                     <!--//1-->
                                 </li>
-                                <li>
-                                	<!--1-->
-                                    <div>
-                                        <span class="mr3 font_s16">[취업성공사례]</span>
-                                        <a href="#"><strong>전라남도 공공근로사업에 대한 안내</strong></a>
-                                        <span class="date">2017-10-30</span>
-                                        <p class="txt_justify">저소득층 대상 일자리 창출, 청년실업 해소 및 지역 특성에 맞는 현안사업 추진을 위한 2015년도 공공 근로사업을 추진, 사업개시일 현재 만18세 이상인 근로능력자로서 가구소득이 최저생계비의 120% 이하(지역 사정에 따라 150%까지 가능)이면서 재산이 1억원 ...</p>
-                                    </div>
-                                    <!--//1-->
-                                </li>
-                                <li>
-                                	<!--1-->
-                                    <div>
-                                        <span class="mr3 font_s16">[취업자료실]</span>
-                                        <a href="#"><strong>전라남도 공공근로사업에 대한 안내</strong></a>
-                                        <span class="date">2017-10-30</span>
-                                        <p class="txt_justify">저소득층 대상 일자리 창출, 청년실업 해소 및 지역 특성에 맞는 현안사업 추진을 위한 2015년도 공공 근로사업을 추진, 사업개시일 현재 만18세 이상인 근로능력자로서 가구소득이 최저생계비의 120% 이하(지역 사정에 따라 150%까지 가능)이면서 재산이 1억원 ...</p>
-                                    </div>
-                                    <!--//1-->
-                                </li>
                                 <c:if test="${status.last && collectionCountMap['jobNewsCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="tar more"><a href="#">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></dd>
                                 </c:if>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
                     <!--//일자리뉴스-->
                 	</c:if>
+                	<c:if test="${totalCount > 3 && collection ne 'ALL'}">
+                	<!--page navigation-->
+					<div class="paging_wrap">
+						<div class="tac">
+							<ul class="pagination">
+								<li class="button previous"><a href="#" title="처음"><span>처음</span></a></li>
+                                <li class="button left"><a href="#" title="이전"><span>이전</span></a></li>
+                                <li class="active"><a href="#" title="현재"><strong>1</strong></a></li>
+                                <li><a href="#" title="다음">2</a></li>
+                                <li><a href="#" title="다음">3</a></li>
+                                <li><a href="#" title="다음">4</a></li>
+                                <li><a href="#" title="다음">5</a></li>
+                                <li class="button right"><a href="#" title="다음"><span>다음</span></a></li>
+                                <li class="button next"><a href="#" title="마지막"><span>마지막</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--//page navigation-->
+                    </c:if> 
                 </div>
                 <div class="resultAside">
                 	<!--내가찾은 검색어-->
                     <div class="box">
                         <h2>내가 찾은 검색어</h2>
                             <ul>
-                                <li><span class="num">1</span> <a href="#id" onclick="#">가나다라마바사</a> </li>
-                                <li><span class="num">2</span> <a href="#id" onclick="#">우리나라대한민국</a> </li>
-                                <li><span class="num">3</span> <a href="#id" onclick="#">전라남도 삼향읍</a></li>
-                                <li><span class="num">4</span> <a href="#id" onclick="#">후광대로 전라남도청</a></li>
-                                <li><span class="num">5</span> <a href="#id" onclick="#">전라남도일자리종합센터</a></li>			
+                                <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
+                                <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
+                                <li><span class="num">3</span><a href="전라남도 삼향읍" class="otherKeyword">전라남도 삼향읍</a></li>
+                                <li><span class="num">4</span><a href="후광대로 전라남도청" class="otherKeyword">후광대로 전라남도청</a></li>
+                                <li><span class="num">5</span><a href="전라남도일자리종합센터" class="otherKeyword">전라남도일자리종합센터</a></li>			
                             </ul>                   
                     </div>
                     <!--//내가 찾은 검색어-->
@@ -288,16 +275,16 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                     <div class="box popluar">
                         <h2>인기 검색어</h2>
                             <ul>
-                                <li><span class="num">1</span> <a href="#id" onclick="#">가나다라마바사</a> </li>
-                                <li><span class="num">2</span> <a href="#id" onclick="#">우리나라대한민국</a> </li>
-                                <li><span class="num">3</span> <a href="#id" onclick="#">전라남도 삼향읍</a></li>
-                                <li><span class="num">4</span> <a href="#id" onclick="#">후광대로 전라남도청</a></li>
-                                <li><span class="num">5</span> <a href="#id" onclick="#">전라남도일자리종합센터</a></li>
-                                <li><span class="num">6</span> <a href="#id" onclick="#">가나다라마바사</a> </li>
-                                <li><span class="num">7</span> <a href="#id" onclick="#">우리나라대한민국</a> </li>
-                                <li><span class="num">8</span> <a href="#id" onclick="#">전라남도 삼향읍</a></li>
-                                <li><span class="num">9</span> <a href="#id" onclick="#">후광대로 전라남도청</a></li>
-                                <li><span class="num">10</span> <a href="#id" onclick="#">전라남도일자리종합센터</a></li>			
+                                <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
+                                <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
+                                <li><span class="num">3</span><a href="#id" onclick="#">전라남도 삼향읍</a></li>
+                                <li><span class="num">4</span><a href="#id" onclick="#">후광대로 전라남도청</a></li>
+                                <li><span class="num">5</span><a href="#id" onclick="#">전라남도일자리종합센터</a></li>
+                                <li><span class="num">6</span><a href="#id" onclick="#">가나다라마바사</a></li>
+                                <li><span class="num">7</span><a href="#id" onclick="#">우리나라대한민국</a></li>
+                                <li><span class="num">8</span><a href="#id" onclick="#">전라남도 삼향읍</a></li>
+                                <li><span class="num">9</span><a href="#id" onclick="#">후광대로 전라남도청</a></li>
+                                <li><span class="num">10</span><a href="#id" onclick="#">전라남도일자리종합센터</a></li>			
                             </ul>                   
                     </div>
                     <!--//인기 검색어-->

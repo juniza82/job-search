@@ -74,17 +74,22 @@ public class SearchService {
 					String result = wnsearch.getField(collection, field, index, false);
 					documentMap.put(field, result);
 				});
-				documentMapList.add(documentMap);				
+				documentMapList.add(documentMap);
+				
 			});
 			collectionResultMap.put(collection + "Result", documentMapList);
-			logger.info(String.format("[SEARCH::SERVICE] collection result count is => collection:%s,count:%s,thisTotalCount:%s", collection, count, thisTotalCount));
+			logger.info(String.format("[SEARCH::SERVICE] collection result count is => collection:%s,count:%s,thisTotalCount:%s", 
+					collection, count, thisTotalCount));
 			
 		});
 		
 		// 전체 결과
 		int totalCount = collectionCountMap.entrySet().stream().mapToInt(map -> map.getValue()).sum();
+		String paging = wnsearch.getPageLinks(startCount, totalCount, viewResultCount, 10);
 		
-		logger.info(String.format("[SEARCH::SERVICE] RESULT DEBUG MESSAGE => %s, %s", totalCount, collectionCountMap));
+		logger.info(String.format("[SEARCH::SERVICE] RESULT DEBUG MESSAGE => totalCount: %s, collectionCountMap:%s, paging: %s", 
+				totalCount, collectionCountMap, paging));
+		
 		if ( wnsearch != null ) {
 			wnsearch.closeServer();
 		}
@@ -94,6 +99,6 @@ public class SearchService {
 		resultMap.put("collectionResultMap", collectionResultMap);
 		return resultMap;
 		
-	}
+	}	
 	
 }

@@ -2163,8 +2163,10 @@ public class WNSearch {
 		
 		if(wnanchor.getFirstPage() != -1) {
 			sbRet.append("<a class=\"pre\" href=\"#none\" onClick=\"javascript:doPaging('"+wnanchor.getBundleBefore()+"');\" title=\"이전페이지\">이전페이지</a>");
+			//sbRet.append("<li class=\"button left\"><a href=\"#\" title=\"이전\" onClick=\"javascript:doPaging('"+wnanchor.getBundleBefore()+"');\"><span>이전</span></a></li>");
 		} else {
 			sbRet.append("<a class=\"pre\" href=\"#none\" title=\"이전페이지\">이전페이지</a>");
+			//sbRet.append("<li class=\"button left\"><a href=\"#\" title=\"이전\"><span>이전</span></a></li>");
 		} 
 
 		int pageCount = wnanchor.getPageCount();
