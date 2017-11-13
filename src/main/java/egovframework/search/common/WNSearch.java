@@ -2162,11 +2162,11 @@ public class WNSearch {
 		WNAnchor wnanchor = getPageAnchor(startCount, totalCount, viewListCount, bundleCount);
 		
 		if(wnanchor.getFirstPage() != -1) {
-			sbRet.append("<a class=\"pre\" href=\"#none\" onClick=\"javascript:doPaging('"+wnanchor.getBundleBefore()+"');\" title=\"이전페이지\">이전페이지</a>");
-			//sbRet.append("<li class=\"button left\"><a href=\"#\" title=\"이전\" onClick=\"javascript:doPaging('"+wnanchor.getBundleBefore()+"');\"><span>이전</span></a></li>");
+			//sbRet.append("<a class=\"pre\" href=\"#none\" onClick=\"javascript:doPaging('"+wnanchor.getBundleBefore()+"');\" title=\"이전페이지\">이전페이지</a>");
+			sbRet.append("<li class=\"button left\"><a href=\"#\" title=\"이전\" onClick=\"javascript:doPaging('"+wnanchor.getBundleBefore()+"');\"><span>이전</span></a></li>");
 		} else {
-			sbRet.append("<a class=\"pre\" href=\"#none\" title=\"이전페이지\">이전페이지</a>");
-			//sbRet.append("<li class=\"button left\"><a href=\"#\" title=\"이전\"><span>이전</span></a></li>");
+			//sbRet.append("<a class=\"pre\" href=\"#none\" title=\"이전페이지\">이전페이지</a>");
+			sbRet.append("<li class=\"button left\"><a href=\"#\" title=\"이전\"><span>이전</span></a></li>");
 		} 
 
 		int pageCount = wnanchor.getPageCount();
@@ -2174,16 +2174,20 @@ public class WNSearch {
 
 		for(int i=0; i<pageCount && i < pages.length; i++) {
 			if(pages[i][1].equals("-1")) {
-				sbRet.append("<strong>" + pages[i][0] + "</strong>");
+				//sbRet.append("<strong>" + pages[i][0] + "</strong>");
+				sbRet.append("<li class=\"active\"><a href=\"#\" title=\"다음\">" + pages[i][0] + "</a></li>");
 			} else {
-				sbRet.append("<a href=\"#none\" onClick=\"javascript:doPaging('"+pages[i][1]+"');\" title=\"페이징\"> "+pages[i][0]+" </a>");
+				//sbRet.append("<a href=\"#none\" onClick=\"javascript:doPaging('"+pages[i][1]+"');\" title=\"페이징\"> "+pages[i][0]+" </a>");
+				sbRet.append("<li><a href=\"#\" onClick=\"javascript:doPaging('"+pages[i][1]+"');\" title=\"현재\"><strong>" + pages[i][0] + "</strong></a></li>");
 			}
 		}
 
 		if(wnanchor.getBundleNext() != -1) {
-			sbRet.append("<a class=\"next\" href=\"#none\" onClick=\"javascript:doPaging('"+wnanchor.getBundleNext()+"')\" title=\"다음페이지\">다음페이지</a>");
+			//sbRet.append("<a class=\"next\" href=\"#none\" onClick=\"javascript:doPaging('"+wnanchor.getBundleNext()+"')\" title=\"다음페이지\">다음페이지</a>");
+			sbRet.append("<li class=\"button right\"><a href=\"#\" onClick=\"javascript:doPaging('"+wnanchor.getBundleNext()+"')\" title=\"다음\"><span>다음</span></a></li>");
 		} else {
-			sbRet.append("<a class=\"next\" href=\"#none\" title=\"다음페이지\">다음페이지</a>");
+			//sbRet.append("<a class=\"next\" href=\"#none\" title=\"다음페이지\">다음페이지</a>");
+			sbRet.append("<li class=\"button right\"><a href=\"#\" title=\"다음\"><span>다음</span></a></li>");
 		}
 
 		return sbRet.toString();

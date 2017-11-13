@@ -1,4 +1,5 @@
 function otherKeywordClickEventBinding() {
+	
 	$('.otherKeyword').click(function(event) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -6,6 +7,16 @@ function otherKeywordClickEventBinding() {
 		$('#query').val(query);
 		$('#searchForm').submit();
 	});
+	
+}
+
+function doPaging(paging) {
+	
+	event.preventDefault();
+	event.stopPropagation();
+	$('#paging').val(paging);
+	$('#searchForm').submit();
+	
 }
 
 $(document).ready(function() {

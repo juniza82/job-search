@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import egovframework.search.common.WNCollection;
 import egovframework.search.common.WNDefine;
 import egovframework.search.common.WNSearch;
 
@@ -85,7 +86,8 @@ public class SearchService {
 		
 		// 전체 결과
 		int totalCount = collectionCountMap.entrySet().stream().mapToInt(map -> map.getValue()).sum();
-		String paging = wnsearch.getPageLinks(startCount, totalCount, viewResultCount, 10);
+		int lastPaging = totalCount == 0 ? 0 : (int)Math.floor(totalCount / 10) * 10;
+		String paging = collectionNameList.size() == 1 ? wnsearch.getPageLinks(startCount, totalCount, viewResultCount, 5) : "";
 		
 		logger.info(String.format("[SEARCH::SERVICE] RESULT DEBUG MESSAGE => totalCount: %s, collectionCountMap:%s, paging: %s", 
 				totalCount, collectionCountMap, paging));
@@ -95,8 +97,11 @@ public class SearchService {
 		}
 		
 		resultMap.put("totalCount", totalCount);
+		resultMap.put("lastPaging", lastPaging);
 		resultMap.put("collectionCountMap", collectionCountMap);
 		resultMap.put("collectionResultMap", collectionResultMap);
+		resultMap.put("paging", paging);
+		
 		return resultMap;
 		
 	}	

@@ -2,7 +2,8 @@
 taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %><%@ 
 taglib prefix="form"   uri="http://www.springframework.org/tags/form" %><%@ 
 taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%><%@ 
-taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+taglib prefix="spring" uri="http://www.springframework.org/tags"%><%@ 
+taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -57,6 +58,7 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                         <form id="searchForm" action="${pageContext.request.contextPath}/app/search.do" method="get">
                         	<input type="text" id="topQuery" name="query" title="통합검색" style="ime-mode:active;" class="input" value="${query}">
                         	<input type="hidden" id="collection" name="collection" value="${collection}"/>
+                        	<input type="hidden" id="paging" name="startCount" value=""/>
                         	<input type="image" id="topSearch" name="topSearch" src="${pageContext.request.contextPath}/web/images/common/btn_search.gif" alt="검색하기" class="btn_search">
                         </form>
                     </fieldset>
@@ -238,20 +240,21 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
                     </div>
                     <!--//일자리뉴스-->
                 	</c:if>
-                	<c:if test="${totalCount > 3 && collection ne 'ALL'}">
+                	<c:if test="${totalCount > 10 && collection ne 'ALL'}">
                 	<!--page navigation-->
 					<div class="paging_wrap">
 						<div class="tac">
 							<ul class="pagination">
-								<li class="button previous"><a href="#" title="처음"><span>처음</span></a></li>
-                                <li class="button left"><a href="#" title="이전"><span>이전</span></a></li>
+								<li class="button previous"><a href="#" title="처음" <c:if test="${startCount ne 0}">onClick="javascript:doPaging('0');"</c:if>><span>처음</span></a></li>
+                                <!-- <li class="button left"><a href="#" title="이전"><span>이전</span></a></li>
                                 <li class="active"><a href="#" title="현재"><strong>1</strong></a></li>
                                 <li><a href="#" title="다음">2</a></li>
                                 <li><a href="#" title="다음">3</a></li>
                                 <li><a href="#" title="다음">4</a></li>
                                 <li><a href="#" title="다음">5</a></li>
-                                <li class="button right"><a href="#" title="다음"><span>다음</span></a></li>
-                                <li class="button next"><a href="#" title="마지막"><span>마지막</span></a></li>
+                                <li class="button right"><a href="#" title="다음"><span>다음</span></a></li> -->
+                                ${paging}
+                                <li class="button next"><a href="#" title="마지막" <c:if test="${totalCount ne 0}">onClick="javascript:doPaging('${lastPaging}');"</c:if>><span>마지막</span></a></li>
                             </ul>
                         </div>
                     </div>
