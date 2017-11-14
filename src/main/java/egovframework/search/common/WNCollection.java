@@ -2,9 +2,10 @@ package egovframework.search.common;
 
 public class WNCollection {
 	
-	public static String SEARCH_IP = "127.0.0.1";
+	public static String SEARCH_IP = "cyberline.iptime.org";
+	//public static String SEARCH_IP = "dev.truetech.info";
 	public static int SEARCH_PORT=7000;
-	public static String MANAGER_IP = "127.0.0.1";
+	public static String MANAGER_IP = "cyberline.iptime.org";
 	public static int MANAGER_PORT=7800;
 
 	public static String[] COLLECTIONS = new String[]{"recruitInformation", "employmentInformation", "educationTraining", "localBusiness", "jobNews"};

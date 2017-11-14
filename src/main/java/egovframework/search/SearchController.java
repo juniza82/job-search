@@ -46,10 +46,10 @@ public class SearchController {
 		Map<String, Object> result = searchService.search(query, collections, startCount, viewCount);
 		
 		int totalCount = (int) result.get("totalCount");
-		Map<String, Integer> collectionCountMap = (Map<String, Integer>) result.get("collectionCountMap");
-		Map<String, Object> collectionResultMap = (Map<String, Object>) result.get("collectionResultMap");
 		String paging = (String) result.get("paging");
 		int lastPaging = (int) result.get("lastPaging");
+		Map<String, Integer> collectionCountMap = (Map<String, Integer>) result.get("collectionCountMap");
+		Map<String, Object> collectionResultMap = (Map<String, Object>) result.get("collectionResultMap");
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("search/search");

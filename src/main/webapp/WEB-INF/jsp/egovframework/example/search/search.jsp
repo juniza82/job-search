@@ -25,6 +25,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/search.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/responsive.css">
 <script src="${pageContext.request.contextPath}/web/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/web/js/jquery.cookie.js"></script>
 <script src="${pageContext.request.contextPath}/web/js/search.js"></script>
 </head>
 <body id="main">	
@@ -263,9 +264,9 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
                 </div>
                 <div class="resultAside">
                 	<!--내가찾은 검색어-->
-                    <div class="box">
+                    <div class="box" id="myKeywordAreaDiv">
                         <h2>내가 찾은 검색어</h2>
-                            <ul>
+                            <ul id="myKeywordArea">
                                 <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
                                 <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
                                 <li><span class="num">3</span><a href="전라남도 삼향읍" class="otherKeyword">전라남도 삼향읍</a></li>

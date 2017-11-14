@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import egovframework.search.common.WNCollection;
 import egovframework.search.common.WNDefine;
 import egovframework.search.common.WNSearch;
 
@@ -104,6 +103,6 @@ public class SearchService {
 		
 		return resultMap;
 		
-	}	
+	}
 	
 }
