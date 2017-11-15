@@ -71,6 +71,9 @@ public class SearchService {
 				
 				Map<String, String> documentMap = new HashMap<>();
 				searchResultFieldList.stream().forEach((String field) -> {
+					if(field.contains("/")) {
+						field = field.substring(0, field.indexOf("/"));
+					}
 					String result = wnsearch.getField(collection, field, index, false);
 					documentMap.put(field, result);
 				});
