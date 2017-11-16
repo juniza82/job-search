@@ -54,7 +54,7 @@ $(document).ready(function() {
 		$('#searchForm').submit();
 		
 	});
-	
+		
 	$('#searchForm').submit(function(event) {
 		
 		event.preventDefault();

@@ -3,7 +3,8 @@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %><%@
 taglib prefix="form"   uri="http://www.springframework.org/tags/form" %><%@ 
 taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%><%@ 
 taglib prefix="spring" uri="http://www.springframework.org/tags"%><%@ 
-taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%@ 
+taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -112,16 +113,46 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
                         	<dl>
                             	<dt>
                                 	<a href="#">${entry['COMPANY_NAME']}</a>
-                                    <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span>
+                                    <!-- <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span> -->
                                 </dt>
                                 <dd>
                                 	<p><!--채용제목-->${entry['TITLE']}</p>
-                                    <span><strong>마감일 : </strong>${entry['ACCEPT_END_DAY']}(월)</span>
-                                	<span><strong>경력 : </strong>${entry['CAREER_TERMS']}</span>
-                                    <span><strong>학력 : </strong>${entry['HIRE_MONEY_TYPE']}</span>
-                                    <span><strong>고용형태 : </strong>${entry['HIRE_MONEY_TYPE']}</span>
-                                    <span class="bg_none"><strong>근무지역 : </strong>${entry['LOCATION']}</span>
-                                    <span class="db bg_none"><strong>키워드 : </strong>${entry['KEYWORD']}</span>
+                                    <span><strong>마감일 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['ACCEPT_END_DAY'] eq null || entry['ACCEPT_END_DAY'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['ACCEPT_END_DAY']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                	<span><strong>경력 : </strong>
+                                		<c:choose>
+                                			<c:when test="${entry['CAREER_TERMS'] eq null || entry['CAREER_TERMS'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['CAREER_TERMS']}</c:otherwise>
+                                		</c:choose>
+                                	</span>
+                                    <span><strong>학력 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['NO_EDUCATION'] eq null || entry['NO_EDUCATION'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['NO_EDUCATION']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                    <span><strong>고용형태 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['HIRE_MONEY_TYPE'] eq null || entry['HIRE_MONEY_TYPE'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['HIRE_MONEY_TYPE']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                    <span class="bg_none"><strong>근무지역 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['LOCATION'] eq null || entry['LOCATION'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['LOCATION']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                    <span class="db bg_none"><strong>키워드 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['KEYWORD'] eq null || entry['KEYWORD'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['KEYWORD']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
                                 	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></dd>
@@ -140,17 +171,48 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
                         <div class="job_box">
                         	<dl>
                             	<dt>
-                                	<a href="#"><!--성명-->${entry['USER_NM']}<span class="font_s3">(${entry['SEX']}, 만 ${entry['AGE']}세)</span></a>
-                                    <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span>
+                                	<a href="#"><!--성명-->${entry['USER_NM']}<span class="font_s3">(<c:choose>
+                                			<c:when test="${entry['SEX'] eq 'M'}">남</c:when>
+                                			<c:when test="${entry['SEX'] eq 'F'}">여</c:when>
+                                			<c:otherwise> - </c:otherwise>
+                                		</c:choose>, 만 ${entry['AGE']}세)</span></a>
+                                    <!-- <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span> -->
                                 </dt>
                                 <dd>
                                 	<p><!--이력서제목-->${entry['TITLE']}</p>
-                                    <span><strong>희망직종 : </strong>${entry['HOPE_WORK_DETAIL']}(월)</span>
-                                	<span><strong>경력 : </strong>${entry['CAREER_YEAR']}, ${entry['CAREER_MONTH']}</span>
-                                    <span><strong>학력 : </strong>${entry['DEGREE']}</span>
-                                    <span><strong>희망고용형태 : </strong>${entry['HOPE_PAY_TYPE']}</span>
-                                    <span class="bg_none"><strong>희망근무지 : </strong>${entry['HOPE_LOCATION']}</span>
-                                    <span class="db bg_none"><strong>키워드 : </strong>${entry['KEYWORD']}</span>
+                                    <span><strong>희망직종 : </strong>${entry['HOPE_WORK_DETAIL']}</span>
+                                	<span><strong>경력 : </strong>
+                                		<c:choose>
+                                			<c:when test="${entry['CAREER_YEAR'] ne null && entry['CAREER_YEAR'] ne '' && entry['CAREER_MONTH'] ne null && entry['CAREER_MONTH'] ne ''}">${entry['CAREER_YEAR']}년 ${entry['CAREER_MONTH']}개월</c:when>
+                                			<c:when test="${entry['CAREER_YEAR'] ne null && entry['CAREER_YEAR'] ne '' && (entry['CAREER_MONTH'] eq null || entry['CAREER_MONTH'] eq '')}">${entry['CAREER_YEAR']}년 0개월</c:when>
+                                			<c:when test="${(entry['CAREER_YEAR'] ne null || entry['CAREER_YEAR'] ne '') && entry['CAREER_MONTH'] ne null && entry['CAREER_MONTH'] ne ''}">0년 ${entry['CAREER_MONTH']}개월</c:when>
+                                			<c:otherwise> - </c:otherwise>
+                                		</c:choose>
+                                	</span>
+                                    <span><strong>학력 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['DEGREE'] eq null || entry['DEGREE'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['DEGREE']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                    <span><strong>희망고용형태 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['HOPE_PAY_TYPE'] eq null || entry['HOPE_PAY_TYPE'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['HOPE_PAY_TYPE']}</c:otherwise>
+                                		</c:choose>
+                                	</span>
+                                    <span class="bg_none"><strong>희망근무지 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['HOPE_LOCATION'] eq null || entry['HOPE_LOCATION'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['HOPE_LOCATION']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                    <span class="db bg_none"><strong>키워드 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['KEYWORD'] eq null || entry['KEYWORD'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['KEYWORD']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
                                 	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></dd>
@@ -173,10 +235,30 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
                                 </dt>
                                 <dd>
                                 	<p><!--교육훈련명-->${entry['TITLE']}</p>
-                                    <span><strong>모집기간 : </strong>${entry['RECRUIT_END']}(월)</span>
-                                	<span><strong>교육정원 : </strong>${entry['EDU_MAX_COUNT']}</span>
-                                    <span><strong>교육시간 : </strong>${entry['EDU_TIME']}</span>
-                                    <span class="bg_none"><strong>교육장소 : </strong>${entry['LOCATION']}</span>
+                                    <span><strong>모집기간 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['RECRUIT_END'] eq null || entry['RECRUIT_END'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['RECRUIT_END']}</c:otherwise>
+                                		</c:choose>
+                                	</span>
+                                	<span><strong>교육정원 : </strong>
+                                		<c:choose>
+                                			<c:when test="${entry['EDU_MAX_COUNT'] eq null || entry['EDU_MAX_COUNT'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['EDU_MAX_COUNT']}명</c:otherwise>
+                                		</c:choose>
+                                	</span>
+                                    <span><strong>교육시간 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['EDU_TIME'] eq null || entry['EDU_TIME'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['EDU_TIME']}명</c:otherwise>
+                                		</c:choose>
+                                    </span>
+                                    <span class="bg_none"><strong>교육장소 : </strong>
+                                    	<c:choose>
+                                			<c:when test="${entry['LOCATION'] eq null || entry['LOCATION'] eq ''}"> - </c:when>
+                                			<c:otherwise>${entry['LOCATION']}</c:otherwise>
+                                		</c:choose>
+                                    </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
                                 	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></dd>
@@ -225,7 +307,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
                                 	<!--1-->
                                 	<div class="fl">
                                     	<span class="mr3 font_s16">>${entry['BOARD_ID']}</span>
-                                        <a href="#"><strong>${entry['TITLE']}제목이 노출정의 안됨</strong></a>
+                                        <a href="#"><strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>entry['TITLE']</c:otherwise></c:choose></strong></a>
                                         <span class="fc_gray">${entry['DATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
@@ -297,7 +379,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
         </div>
         <!--//통합검색-->
 	</div><!-- //container -->
-	<footer id="footer">
+	<footer id="footer" style="margin-top: 6px;">
     <div class="row">
         <div class="copyright fl">
             <div class="footlogo"><img src="${pageContext.request.contextPath}/web/images/common/logo_foot.png" alt="전라남도일자리종합센터"></div>
