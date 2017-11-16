@@ -2,10 +2,9 @@ package egovframework.search.common;
 
 public class WNCollection {
 	
-	public static String SEARCH_IP = "cyberline.iptime.org";
-	//public static String SEARCH_IP = "dev.truetech.info";
+	public static String SEARCH_IP = "dev.truetech.info";
 	public static int SEARCH_PORT=7000;
-	public static String MANAGER_IP = "cyberline.iptime.org";
+	public static String MANAGER_IP = "dev.truetech.info";
 	public static int MANAGER_PORT=7800;
 
 	public static String[] COLLECTIONS = new String[]{"recruitInformation", "employmentInformation", "educationTraining", "localBusiness", "jobNews"};
@@ -135,7 +134,7 @@ public class WNCollection {
 				"RANK/DESC,DATE/DESC",  // set sort field (field,order) multi sort '/'
 				"basic,rpfmo,100",  // set sort field (field,order) multi sort '/'
 				"TITLE/100,CONTENT/30",// set search field
-				"DOCID,BOARD_ID,TITLE,CONTENT,DATE,ALIAS",// set document field
+				"DOCID,BOARD_ID,TITLE,CONTENT/300,DATE,ALIAS",// set document field
 				"", // set date range
 				"", // set rank range
 				"", // set prefix query, example: <fieldname:contains:value1>|<fieldname:contains:value2>/1,  (fieldname:contains:value) and ' ', or '|', not '!' / operator (AND:1, OR:0)
