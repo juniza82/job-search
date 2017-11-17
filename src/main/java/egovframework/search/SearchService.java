@@ -129,14 +129,14 @@ public class SearchService {
 				StringReader stringReader = new StringReader(responseString);
 				InputSource inputSource = new InputSource(stringReader);
 				Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
-				logger.info(String.format("[SEARCH::POPKEYWORD] document => %s", document.getTextContent()));
+				//logger.info(String.format("[SEARCH::POPKEYWORD] document => %s", document.getTextContent()));
 
 				if(document != null) {
 					NodeList rootChildNodelist = document.getChildNodes();
 
 					if(rootChildNodelist != null) {
 						Node dataNode = rootChildNodelist.item(0);
-						logger.info(String.format("[SEARCH::POPKEYWORD] dataNode => %s", dataNode.getTextContent()));
+						//logger.info(String.format("[SEARCH::POPKEYWORD] dataNode => %s", dataNode.getTextContent()));
 
 						if(dataNode != null) {
 							NodeList dataChildNode = dataNode.getChildNodes();
@@ -147,10 +147,10 @@ public class SearchService {
 								for( int i = 0 ; i < currentSize ; i++ ) {
 
 									Node node = dataChildNode.item(i);
-									logger.info(String.format("[SEARCH::POPKEYWORD] dataChildNode => %s,%s", node.getNodeName(), node.getTextContent()));
+									//logger.info(String.format("[SEARCH::POPKEYWORD] dataChildNode => %s,%s", node.getNodeName(), node.getTextContent()));
 
 									if(node != null && node.getNodeName().equals("Query")) {
-										logger.info(String.format("[SEARCH::POPKEYWORD] Query => %s", node.getTextContent()));
+										//logger.info(String.format("[SEARCH::POPKEYWORD] Query => %s", node.getTextContent()));
 										String keyword = node.getTextContent();
 										keywords.add(keyword);
 									}

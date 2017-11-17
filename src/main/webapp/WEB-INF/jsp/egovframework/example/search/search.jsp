@@ -306,8 +306,8 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">>${entry['BOARD_ID']}</span>
-                                        <a href="#"><strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>entry['TITLE']</c:otherwise></c:choose></strong></a>
+                                    	<span class="mr3 font_s16">>${entry['BOARD_NM']}</span>
+                                        <a href="#"><strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>${entry['TITLE']}</c:otherwise></c:choose></strong></a>
                                         <span class="fc_gray">${entry['DATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
