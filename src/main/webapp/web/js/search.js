@@ -79,6 +79,22 @@ $(document).ready(function() {
 		$('#collection').val(collectionName);
 		$('#searchForm').submit();
 	});
+
+	$('#myKeywordAreaH2').click(function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+        $('#myKeywordArea').toggle();
+
+    });
+
+    $('#popKeywordAreaH2').click(function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+        $('#popKeywordAreaDiv').toggle();
+
+    });
 	
 	var myKeyword = $.cookie('my_keyword');
     if(myKeyword != undefined && myKeyword != '' && myKeyword.replace(/^\s+|\s+$/gm,'') != '') {

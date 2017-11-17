@@ -155,7 +155,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></li>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></dd>
                                 </c:if>
                             </dl>
                         </div>
@@ -215,7 +215,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></li>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></dd>
                                 </c:if>
                             </dl>
                         </div>
@@ -250,7 +250,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     <span><strong>교육시간 : </strong>
                                     	<c:choose>
                                 			<c:when test="${entry['EDU_TIME'] eq null || entry['EDU_TIME'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['EDU_TIME']}명</c:otherwise>
+                                			<c:otherwise>${entry['EDU_TIME']}</c:otherwise>
                                 		</c:choose>
                                     </span>
                                     <span class="bg_none"><strong>교육장소 : </strong>
@@ -261,7 +261,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></li>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></dd>
                                 </c:if>	
                             </dl>
                         </div>
@@ -279,7 +279,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">${entry['BOARD_ID']}</span>
+                                    	<span class="mr3 font_s16">[${entry['BOARD_ID']}]</span>
                                         <a href="#"><strong>${entry['TITLE']}</strong></a>
                                         <span class="fc_gray">${entry['DATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
@@ -289,7 +289,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 </li>
                                 </c:forEach>
                                 <c:if test="${status.last && collectionCountMap['localBusinessCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></li>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></dd>
                                 </c:if>
                             </ul>
                         </div>
@@ -306,16 +306,16 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">${entry['BOARD_NM']}</span>
+                                    	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
                                         <a href="#"><strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>${entry['TITLE']}</c:otherwise></c:choose></strong></a>
-                                        <span class="fc_gray">${entry['DATE']}</span>
+                                        <span class="fc_gray">${entry['RDATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
                                     <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span>
                                     <!--//1-->
                                 </li>
                                 <c:if test="${status.last && collectionCountMap['jobNewsCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></li>
+                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></dd>
                                 </c:if>
                                 </c:forEach>
                             </ul>
@@ -347,7 +347,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                 <div class="resultAside">
                 	<!--내가찾은 검색어-->
                     <div class="box" id="myKeywordAreaDiv">
-                        <h2>내가 찾은 검색어</h2>
+                        <h2 id="myKeywordAreaH2">내가 찾은 검색어</h2>
                             <ul id="myKeywordArea">
                                 <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
                                 <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
@@ -359,8 +359,8 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                     <!--//내가 찾은 검색어-->
                     <!--인기 검색어-->
                     <div class="box popluar">
-                        <h2>인기 검색어</h2>
-                            <ul>
+                        <h2 id="popKeywordAreaH2">인기 검색어</h2>
+                            <ul id="popKeywordAreaDiv">
                                 <c:forEach var="popKeyword" items="${popKeywords}" varStatus="status">
                                     <li><span class="num">${status.index + 1}</span><a href="${popKeyword}" class="otherKeyword">${popKeyword}</a></li>
                                 </c:forEach>
