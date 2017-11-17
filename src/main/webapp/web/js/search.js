@@ -4,7 +4,7 @@ function otherKeywordClickEventBinding() {
 		event.preventDefault();
 		event.stopPropagation();
 		var query = $(this).attr('href');
-		$('#query').val(query);
+		$('#topQuery').val(query);
 		$('#searchForm').submit();
 	});
 	
@@ -87,9 +87,10 @@ $(document).ready(function() {
     	for (i = 0; i < array.length ; i++) {
     		$('#myKeywordArea').append("<li><span class='num'>" + (i + 1) + "</span><a href='" + array[i] + "' class='otherKeyword'>" + array[i] + "</a></li>");
     	}
-    	otherKeywordClickEventBinding();
     } else {
     	$('#myKeywordAreaDiv').hide();
     }
+
+    otherKeywordClickEventBinding();
     
 });
