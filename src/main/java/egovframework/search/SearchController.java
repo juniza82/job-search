@@ -1,7 +1,6 @@
 package egovframework.search;
 
-import java.util.Map;
-
+import egovframework.search.common.WNCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import egovframework.search.common.WNCollection;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/app")
@@ -50,7 +50,9 @@ public class SearchController {
 		int lastPaging = (int) result.get("lastPaging");
 		Map<String, Integer> collectionCountMap = (Map<String, Integer>) result.get("collectionCountMap");
 		Map<String, Object> collectionResultMap = (Map<String, Object>) result.get("collectionResultMap");
-		
+
+		List<String> popKeywords = searchService.getPopKeyword();
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("search/search");
 		modelAndView.addObject("query", query);
@@ -61,6 +63,7 @@ public class SearchController {
 		modelAndView.addObject("collectionResultMap", collectionResultMap);
 		modelAndView.addObject("paging", paging);
 		modelAndView.addObject("startCount", startCount);
+		modelAndView.addObject("popKeywords", popKeywords);
 		
 		return modelAndView;
 

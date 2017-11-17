@@ -1,18 +1,22 @@
 package egovframework.search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.IntStream;
-
+import egovframework.search.common.WNCollection;
+import egovframework.search.common.WNDefine;
+import egovframework.search.common.WNSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
-import egovframework.search.common.WNDefine;
-import egovframework.search.common.WNSearch;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
+import java.net.URI;
+import java.util.*;
+import java.util.stream.IntStream;
 
 @Service
 public class SearchService {
@@ -22,8 +26,10 @@ public class SearchService {
 	private final static boolean IS_REALTIME_KEYWORD = false;
 	private final static boolean USE_SUGGESTED_QUERY = false;
 
+	private final static String POP_KEYWORDURI_PATH = "/manager/WNRun.do?target=popword&collection=_ALL_&range=W";
+
 	private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
-	
+
 	public Map<String, Object> search(
 		String query,
 		String[] collections,
@@ -106,6 +112,67 @@ public class SearchService {
 		
 		return resultMap;
 		
+	}
+
+	public List<String> getPopKeyword() {
+
+		List<String> keywords = new ArrayList<>();
+
+		try {
+
+			RestTemplate restTemplate = new RestTemplate();
+			URI uri = URI.create(String.format("http://%s:%s%s", WNCollection.MANAGER_IP, WNCollection.MANAGER_PORT, POP_KEYWORDURI_PATH));
+			String responseString = restTemplate.getForObject(uri, String.class);
+
+			if(responseString != null && !responseString.equals("")) {
+
+				StringReader stringReader = new StringReader(responseString);
+				InputSource inputSource = new InputSource(stringReader);
+				Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource);
+				logger.info(String.format("[SEARCH::POPKEYWORD] document => %s", document.getTextContent()));
+
+				if(document != null) {
+					NodeList rootChildNodelist = document.getChildNodes();
+
+					if(rootChildNodelist != null) {
+						Node dataNode = rootChildNodelist.item(0);
+						logger.info(String.format("[SEARCH::POPKEYWORD] dataNode => %s", dataNode.getTextContent()));
+
+						if(dataNode != null) {
+							NodeList dataChildNode = dataNode.getChildNodes();
+
+							if(dataChildNode != null) {
+
+								int currentSize = dataChildNode.getLength();
+								for( int i = 0 ; i < currentSize ; i++ ) {
+
+									Node node = dataChildNode.item(i);
+									logger.info(String.format("[SEARCH::POPKEYWORD] dataChildNode => %s,%s", node.getNodeName(), node.getTextContent()));
+
+									if(node != null && node.getNodeName().equals("Query")) {
+										logger.info(String.format("[SEARCH::POPKEYWORD] Query => %s", node.getTextContent()));
+										String keyword = node.getTextContent();
+										keywords.add(keyword);
+									}
+
+								}
+
+							}
+						}
+					}
+				}
+
+			}
+
+			logger.info(String.format("[SEARCH::POPKEYWORD] RESULT MESSAGE => %s, %s", responseString, keywords.size()));
+
+		} catch (Exception e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+		} finally {
+			return keywords;
+		}
+
 	}
 	
 }

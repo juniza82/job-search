@@ -361,16 +361,9 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                     <div class="box popluar">
                         <h2>인기 검색어</h2>
                             <ul>
-                                <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
-                                <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
-                                <li><span class="num">3</span><a href="#id" onclick="#">전라남도 삼향읍</a></li>
-                                <li><span class="num">4</span><a href="#id" onclick="#">후광대로 전라남도청</a></li>
-                                <li><span class="num">5</span><a href="#id" onclick="#">전라남도일자리종합센터</a></li>
-                                <li><span class="num">6</span><a href="#id" onclick="#">가나다라마바사</a></li>
-                                <li><span class="num">7</span><a href="#id" onclick="#">우리나라대한민국</a></li>
-                                <li><span class="num">8</span><a href="#id" onclick="#">전라남도 삼향읍</a></li>
-                                <li><span class="num">9</span><a href="#id" onclick="#">후광대로 전라남도청</a></li>
-                                <li><span class="num">10</span><a href="#id" onclick="#">전라남도일자리종합센터</a></li>			
+                                <c:forEach var="popKeyword" items="${popKeywords}" varStatus="status">
+                                    <li><span class="num">${status.index + 1}</span><a href="${popKeyword}" class="otherKeyword">${popKeyword}</a></li>
+                                </c:forEach>
                             </ul>                   
                     </div>
                     <!--//인기 검색어-->
