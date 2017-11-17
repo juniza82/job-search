@@ -155,7 +155,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></li>
                                 </c:if>
                             </dl>
                         </div>
@@ -215,7 +215,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></li>
                                 </c:if>
                             </dl>
                         </div>
@@ -261,7 +261,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     </span>
                                 </dd>
                                 <c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></li>
                                 </c:if>	
                             </dl>
                         </div>
@@ -289,7 +289,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 </li>
                                 </c:forEach>
                                 <c:if test="${status.last && collectionCountMap['localBusinessCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></li>
                                 </c:if>
                             </ul>
                         </div>
@@ -306,7 +306,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">>${entry['BOARD_NM']}</span>
+                                    	<span class="mr3 font_s16">${entry['BOARD_NM']}</span>
                                         <a href="#"><strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>${entry['TITLE']}</c:otherwise></c:choose></strong></a>
                                         <span class="fc_gray">${entry['DATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
@@ -315,7 +315,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     <!--//1-->
                                 </li>
                                 <c:if test="${status.last && collectionCountMap['jobNewsCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></li>
                                 </c:if>
                                 </c:forEach>
                             </ul>
