@@ -112,7 +112,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                         <div class="job_box">
                         	<dl>
                             	<dt>
-                                	<a href="#">${entry['COMPANY_NAME']}</a>
+                                	<a href="/spm/employ/employView.do?menuCd=J001002&nPageSize=20&seekPersonNo=${entry['DOCID']}&listTarget=employ">${entry['COMPANY_NAME']}</a>
                                     <!-- <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span> -->
                                 </dt>
                                 <dd>
@@ -171,7 +171,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                         <div class="job_box">
                         	<dl>
                             	<dt>
-                                	<a href="#"><!--성명-->${entry['USER_NM']}<span class="font_s3">(<c:choose>
+                                	<a href="/sjm/applicant/applicantView.do?menuCd=J002002&nPageSize=20&seekJobNo=${entry['DOCID']}&listTarget=applicant"><!--성명-->${entry['USER_NM']}<span class="font_s3">(<c:choose>
                                 			<c:when test="${entry['SEX'] eq 'M'}">남</c:when>
                                 			<c:when test="${entry['SEX'] eq 'F'}">여</c:when>
                                 			<c:otherwise> - </c:otherwise>
@@ -231,7 +231,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                         <div class="job_box">
                         	<dl>
                             	<dt>
-                                	<a href="#"><!--교육훈련기관명-->${entry['INSTITUTION_NAME']}</a>
+                                	<a href="/edu/education/educationView.do?menuCd=J003002&nPageSize=20&listTarget=education&eduInfoNo=${entry['DOCID']}"><!--교육훈련기관명-->${entry['INSTITUTION_NAME']}</a>
                                 </dt>
                                 <dd>
                                 	<p><!--교육훈련명-->${entry['TITLE']}</p>
@@ -307,7 +307,9 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 	<!--1-->
                                 	<div class="fl">
                                     	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
-                                        <a href="#"><strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>${entry['TITLE']}</c:otherwise></c:choose></strong></a>
+                                        <a href="/board/${entry['BOARD_ID']}/boardView.do?menuCd=J006001&boardId=${entry['BOARD_ID']}&bdId=${entry['BD_ID']}">
+                                            <strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>${entry['TITLE']}</c:otherwise></c:choose></strong>
+                                        </a>
                                         <span class="fc_gray">${entry['RDATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
