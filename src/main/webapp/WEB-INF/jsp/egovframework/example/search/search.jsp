@@ -280,11 +280,16 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 	<!--1-->
                                 	<div class="fl">
                                     	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
-                                        <a href="#"><strong>${entry['TITLE']}</strong></a>
+                                        <a href="<c:choose>
+                                			<c:when test="${entry['ALIAS'] eq 'local_business_bus'}">/spt/bus/busView.do?menuCd=J005005001&hopeBusNo=${DOCID}</c:when>
+                                			<c:otherwise>/board/${entry['BOARD_ID']}/boardView.do?menuCd=J006001&boardId=${entry['BOARD_ID']}&bdId=${entry['BD_ID']}</c:otherwise>
+                                		</c:choose>">
+                                        	<strong>${entry['TITLE']}</strong>
+                                        </a>
                                         <span class="fc_gray">${entry['RDATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
-                                    <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span>
+                                    <%-- <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span> --%>
                                     <!--//1-->
                                 </li>
                                 </c:forEach>
@@ -313,7 +318,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                         <span class="fc_gray">${entry['RDATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
-                                    <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span>
+                                    <%-- <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span> --%>
                                     <!--//1-->
                                 </li>
                                 <c:if test="${status.last && collectionCountMap['jobNewsCount'] > 3 && collection eq 'ALL'}">
