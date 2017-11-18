@@ -26,7 +26,7 @@ public class SearchService {
 	private final static boolean IS_REALTIME_KEYWORD = false;
 	private final static boolean USE_SUGGESTED_QUERY = false;
 
-	private final static String POP_KEYWORDURI_PATH = "/manager/WNRun.do?target=popword&collection=_ALL_&range=W";
+	private final static String POP_KEYWORDURI_PATH = "/manager/WNRun.do?target=popword&collection=_ALL_&range=D";
 
 	private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 
