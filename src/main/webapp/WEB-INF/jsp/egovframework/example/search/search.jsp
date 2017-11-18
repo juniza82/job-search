@@ -279,9 +279,9 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                             	<li>
                                 	<!--1-->
                                 	<div class="fl">
-                                    	<span class="mr3 font_s16">[${entry['BOARD_ID']}]</span>
+                                    	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
                                         <a href="#"><strong>${entry['TITLE']}</strong></a>
-                                        <span class="fc_gray">${entry['DATE']}</span>
+                                        <span class="fc_gray">${entry['RDATE']}</span>
                                         <p class="txt_justify">${entry['CONTENT']}</p>
                                     </div>
                                     <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span>
