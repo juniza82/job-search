@@ -281,7 +281,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 	<div class="fl">
                                     	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
                                         <a href="<c:choose>
-                                			<c:when test="${entry['ALIAS'] eq 'local_business_bus'}">/spt/bus/busView.do?menuCd=J005005001&hopeBusNo=${DOCID}</c:when>
+                                			<c:when test="${entry['ALIAS'] eq 'local_business_bus'}">/spt/bus/busView.do?menuCd=J005005001&hopeBusNo=${entry['DOCID']}</c:when>
                                 			<c:otherwise>/board/${entry['BOARD_ID']}/boardView.do?menuCd=J006001&boardId=${entry['BOARD_ID']}&bdId=${entry['BD_ID']}</c:otherwise>
                                 		</c:choose>">
                                         	<strong>${entry['TITLE']}</strong>
