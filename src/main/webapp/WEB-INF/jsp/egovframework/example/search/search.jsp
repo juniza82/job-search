@@ -61,6 +61,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                         	<input type="text" id="topQuery" name="query" title="통합검색" style="ime-mode:active;" class="input" value="${query}">
                         	<input type="hidden" id="collection" name="collection" value="${collection}"/>
                         	<input type="hidden" id="paging" name="startCount" value=""/>
+                        	<input type="hidden" id="hiddenQuery" name="hiddenQuery" value="${query}"/>
                         	<input type="image" id="topSearch" name="topSearch" src="${pageContext.request.contextPath}/web/images/common/btn_search.gif" alt="검색하기" class="btn_search">
                         </form>
                     </fieldset>

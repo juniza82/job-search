@@ -73,10 +73,9 @@ $(document).ready(function() {
 	
 	$("input[name=query]").keydown(function (event) {
 		
-		event.preventDefault();
-		
 		var query = $('#topQuery').val();
         if(event.keyCode == 13) {
+        	event.preventDefault();
         	if(query != undefined && query.replace(/^\s+|\s+$/gm, '') != '') {
         		$('#searchForm').submit();
         	} else {
@@ -95,20 +94,44 @@ $(document).ready(function() {
 	    
 	});
 	
-	$('.totalAreaUlLi').click(function(event) { // 테스트 안한 메소드 
+	$('.totalAreaUlLi').click(function(event) {
+		
 		event.preventDefault();
 		event.stopPropagation();
+		
+		var query = $('#topQuery').val();
+		
+		if(query == undefined || query.replace(/^\s+|\s+$/gm, '') == '') {
+
+			var hiddenQuery = $('#hiddenQuery').val();
+			$('#topQuery').val(hiddenQuery);
+			
+		}
+		
 		var collectionName = $(this).find('a').attr('href');
 		$('#collection').val(collectionName);
 		$('#searchForm').submit();
+		
 	});
 	
 	$('.totalAreaUlLiA').click(function(event) {
+		
 		event.preventDefault();
 		event.stopPropagation();
+		
+		var query = $('#topQuery').val();
+		
+		if(query == undefined || query.replace(/^\s+|\s+$/gm, '') == '') {
+
+			var hiddenQuery = $('#hiddenQuery').val();
+			$('#topQuery').val(hiddenQuery);
+			
+		}
+		
 		var collectionName = $(this).attr('href');
 		$('#collection').val(collectionName);
 		$('#searchForm').submit();
+		
 	});
 
 	$('#myKeywordAreaH2').click(function(event) {
