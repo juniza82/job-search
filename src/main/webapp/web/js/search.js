@@ -47,6 +47,16 @@ function setMyKeyword(keyword) {
     
 }
 
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}
+
 $(document).ready(function() {
     
 	$('#topSearch').click(function() {
@@ -58,13 +68,25 @@ $(document).ready(function() {
 	$('#searchForm').submit(function(event) {
 		
 		event.preventDefault();
-	    var query = $('#topQuery').val();
-	    if(query != undefined && query.replace(/^\s+|\s+$/gm,'') != '') {
-	    	setMyKeyword(query);
-		    this.submit();
-	    } else {
-	    	alert('검색어를 입력하여 주세요.');
-	    }
+		var query = $('#topQuery').val();
+		
+		if(!doubleSubmitCheck()) {
+		    
+		    if(query != undefined && query.replace(/^\s+|\s+$/gm,'') != '') {
+		    	
+		    	setMyKeyword(query);
+			    this.submit();
+			    
+		    } else {
+		    	
+		    	alert('검색어를 입력하여 주세요.');
+		    	setTimeout(function() { doubleSubmitFlag = false; }, 0);
+		    	
+		    }
+		    
+		} else {
+			return ;
+		}
 		
 	    
 	});
