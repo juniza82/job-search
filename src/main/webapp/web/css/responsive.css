@@ -1,3 +1,94 @@
-@charset "utf-8";
-/* CSS Document */
+@CHARSET "UTF-8";
+/* 
+Reset & Set Stylesheet
+v2.0.1
+First Updated: 2017-10-30
+Last Updated: 2017-11-22
+Author: TrueDesign
+*/
 
+/*@media all and (min-width:1001px){
+	.head .search .btn_search { margin-top:1px}
+	#contents { min-height:800px}
+	.category ul li a { padding:0px 45.5px}
+	
+	
+	.txt_box ul li > div.fl {width:auto}
+	dd.more {margin-top:5px;background: #f9fafc; padding: 5px;}
+	dd.more a { background: url(../images/content/ic_more.gif) no-repeat right 4px; padding-right:15px}
+}*/
+@media all and (max-width:1000px){
+	/** layout **/
+	#header {height:auto; background:#FFF}
+	#gnb, .pc {display:none !important}
+	.row {width:100% !important}
+	.util .top_site, .util .top_mem { width:50%; float:left}
+	.util .top_site li, .util .top_mem li { border-right: none; width:100%}
+	.util .top_site li a.current { background:#969dac; line-height:34px; color:#FFF; font-weight:normal;}
+	.util .top_site li+li {display:none}
+	
+	.head {height:auto; margin-top:0px !important; border-bottom:2px solid #19b5d6;}
+	.logo.fl {float:none !important;margin:20px 15px; text-align:center}
+	.head .logo h1 {margin:0}
+	.head .logo h1 a img {width:85%;height:auto}
+	.head .logo span {display:none}	
+	
+	.search {float:none !important; margin-top:0 !important; text-align:center; width:100%; background:#19b5d6;height:3em;padding:2% 0%; line-height:3em}
+	.search.fr.mt10 { margin-top:0 !important;float:none !important}
+	.head .search .input {width:70%;}	
+	#contents {margin-bottom:30px; padding-top:15px}
+	
+	.contentBody, .body_content {width:96%; float:none; margin:0 auto; overflow:hidden}
+	
+	/** footer **/
+	#footer .row {padding:20px 0}
+	.copyright.fl {float:none !important; width:96%; margin:0 auto; text-align:center}
+	.footmenu {display:inline-table; display:none}
+	.footmenu li { font-size:12px; display:inline}
+	.copyright p, .copyright p span {display:block;font-size:12px;}
+	.foottel, .footfax {background:none; margin-left:0; padding-left:0}
+	
+	/** container **/
+		/* category */
+		.category {margin:0 auto; overflow:hidden; width:96%}
+		.category ul {height:auto; border-bottom:none}
+		.category ul li {width:32%; margin:0 1px 2px; border-bottom:1px solid #cecece}
+		.category ul li a { text-align:center; width:100%; padding:0; font-size:14px;}
+		.category .on {border-bottom:1px solid #055d5d; line-height:44px; height:46px}
+		
+		/* 검색결과 */
+		.result_word {background:none; border:none; margin-bottom:0; padding-bottom:0}
+		.result_word p { font-size:14px }
+		
+		.resultWrap, .resultAside {float:none; width:auto}
+		.resultWrap h2 {font-size:18px}
+		.resultWrap h2 span {font-size:14px; color:#999}
+		.resultWrap .srchArea {border-top:1px solid #dadada; border-bottom:none; margin:10px 0 0; padding:10px 0 0}
+		
+		.total_box ul, .txt_box ul { margin-left:15px}
+		.total_box li { width:50%}		
+		.job_box dl dt, .txt_box ul li strong { font-size:14px}
+		.job_box dl {border-bottom:1px dotted #dadada; padding-bottom:10px}
+
+		.txt_box ul li > div > span.font_s16 {font-size:14px !important}
+		.txt_box ul li > div.fl, .txt_box ul li .fr { float:none; width:auto}
+		.txt_box ul li .fr { display:none}
+		.txt_box ul li.more { border-bottom:none; padding:5px}
+		
+		/* 인기검색어 */		
+		.resultAside {margin-top:20px; overflow:hidden; height:180px}
+		.resultAside .box {width:49%; float:left; padding:0; margin:0 auto}
+		.resultAside .box.popluar { border-top:none; border-left:1px solid #dadada; min-height:178px}
+		.resultAside .box h2 { padding:10px ; font-size:14px; background-position:95%; 40%}
+		.resultAside .box ul { padding:0px 10px}
+		.resultAside .box .num { margin-right:3px;}
+		.resultAside .box li a { width:80%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; display:inline-block; line-height:13px; font-size:12px}
+		
+		/* 페이징 */
+		.pagination li a {width:25px; height:25px; line-height:25px}
+		.pagination li.button.previous a { background-position:-5px -5px}
+		.pagination li.button.left a { background-position:-41px -5px}
+		.pagination li.button.right a { background-position:-77px -5px}
+		.pagination li.button.next a { background-position:-113px -5px}
+	
+}

@@ -59,8 +59,13 @@ $(document).ready(function() {
 		
 		event.preventDefault();
 	    var query = $('#topQuery').val();
-		setMyKeyword(query);
-	    this.submit();
+	    if(query != undefined && query.replace(/^\s+|\s+$/gm,'') != '') {
+	    	setMyKeyword(query);
+		    this.submit();
+	    } else {
+	    	alert('검색어를 입력하여 주세요.');
+	    }
+		
 	    
 	});
 	

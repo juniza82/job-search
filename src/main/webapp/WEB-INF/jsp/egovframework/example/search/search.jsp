@@ -153,11 +153,11 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 			<c:otherwise>${entry['KEYWORD']}</c:otherwise>
                                 		</c:choose>
                                     </span>
-                                </dd>
-                                <c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></dd>
-                                </c:if>
+                                </dd>                                
                             </dl>
+							<c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
+                            <span class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></span>
+                            </c:if>
                         </div>
                         </c:forEach>
                     </div>
@@ -213,11 +213,11 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 			<c:otherwise>${entry['KEYWORD']}</c:otherwise>
                                 		</c:choose>
                                     </span>
-                                </dd>
-                                <c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></dd>
-                                </c:if>
+                                </dd>                               
                             </dl>
+							<c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
+                            <span class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></span>
+                            </c:if>
                         </div>
                         </c:forEach>
                     </div>
@@ -259,11 +259,11 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 			<c:otherwise>${entry['LOCATION']}</c:otherwise>
                                 		</c:choose>
                                     </span>
-                                </dd>
-                                <c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></dd>
-                                </c:if>	
+                                </dd>                                	
                             </dl>
+							<c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
+                            <span class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></span>
+                            </c:if>
                         </div>
                         </c:forEach>
                     </div>
@@ -292,10 +292,10 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     <%-- <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span> --%>
                                     <!--//1-->
                                 </li>
-                                </c:forEach>
-                                <c:if test="${status.last && collectionCountMap['localBusinessCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></dd>
+								<c:if test="${status.last && collectionCountMap['localBusinessCount'] > 3 && collection eq 'ALL'}">
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></li>
                                 </c:if>
+                                </c:forEach>                                
                             </ul>
                         </div>
                     </div>
@@ -322,7 +322,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                     <!--//1-->
                                 </li>
                                 <c:if test="${status.last && collectionCountMap['jobNewsCount'] > 3 && collection eq 'ALL'}">
-                                	<dd class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></dd>
+                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></li>
                                 </c:if>
                                 </c:forEach>
                             </ul>
@@ -336,13 +336,6 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 						<div class="tac">
 							<ul class="pagination">
 								<li class="button previous"><a href="#" title="처음" <c:if test="${startCount ne 0}">onClick="javascript:doPaging('0');"</c:if>><span>처음</span></a></li>
-                                <!-- <li class="button left"><a href="#" title="이전"><span>이전</span></a></li>
-                                <li class="active"><a href="#" title="현재"><strong>1</strong></a></li>
-                                <li><a href="#" title="다음">2</a></li>
-                                <li><a href="#" title="다음">3</a></li>
-                                <li><a href="#" title="다음">4</a></li>
-                                <li><a href="#" title="다음">5</a></li>
-                                <li class="button right"><a href="#" title="다음"><span>다음</span></a></li> -->
                                 ${paging}
                                 <li class="button next"><a href="#" title="마지막" <c:if test="${totalCount ne 0}">onClick="javascript:doPaging('${lastPaging}');"</c:if>><span>마지막</span></a></li>
                             </ul>
@@ -354,7 +347,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                 <div class="resultAside">
                 	<!--내가찾은 검색어-->
                     <div class="box" id="myKeywordAreaDiv">
-                        <h2 id="myKeywordAreaH2">내가 찾은 검색어</h2>
+                        <h2>내가 찾은 검색어</h2>
                             <ul id="myKeywordArea">
                                 <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
                                 <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
@@ -366,7 +359,7 @@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                     <!--//내가 찾은 검색어-->
                     <!--인기 검색어-->
                     <div class="box popluar">
-                        <h2 id="popKeywordAreaH2">인기 검색어</h2>
+                        <h2>인기 검색어</h2>
                             <ul id="popKeywordAreaDiv">
                                 <c:forEach var="popKeyword" items="${popKeywords}" varStatus="status">
                                     <li><span class="num">${status.index + 1}</span><a href="${popKeyword}" class="otherKeyword">${popKeyword}</a></li>

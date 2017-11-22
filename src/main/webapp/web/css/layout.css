@@ -40,7 +40,7 @@ Author: TrueDesign
 /* search */
 .head .search input {vertical-align:middle}
 .head .search .input {border:3px solid #3c78ce;width:179px; padding:3px 7px; height:30px; }
-.head .search .btn_search { border-radius:0px}
+.head .search .btn_search { border-radius:0px;margin-top:1px}
 
 /* gnb menu */
 .gnbArea {background-color:#19b5d6; height:40px}
@@ -92,6 +92,7 @@ Author: TrueDesign
 .aside {float:left;width:200px;margin-right:40px}
 .body_content {position:relative;width:740px;float:left}
 .body_content .contentBody {width:auto}
+#contents { min-height:800px}
 #contents .contentBody .body_content {padding:0}
 
 #footer{background:#363c48; clear:both; overflow:hidden}
