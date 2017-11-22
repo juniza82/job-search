@@ -21,10 +21,10 @@ function doPaging(paging) {
 
 function setMyKeyword(keyword) {
 	
-	if(keyword != undefined && keyword != '' && keyword.replace(/^\s+|\s+$/gm,'') != '') {
+	if(keyword != undefined && keyword != '' && keyword.replace(/^\s+|\s+$/gm, '') != '') {
 		
 		var myKeyword = $.cookie('my_keyword');
-	    if(myKeyword != undefined && myKeyword != '' && myKeyword.replace(/^\s+|\s+$/gm,'') != '') {
+	    if(myKeyword != undefined && myKeyword != '' && myKeyword.replace(/^\s+|\s+$/gm, '') != '') {
 	    	var array = myKeyword.split(",");
 	    	var hasKeyword = false;
 	    	for (i = 0; i < array.length ; i++) {
@@ -59,35 +59,39 @@ function doubleSubmitCheck(){
 
 $(document).ready(function() {
     
-	$('#topSearch').click(function() {
+	$('#topSearch').click(function(event) {
 		
-		$('#searchForm').submit();
+		event.preventDefault();
+		var query = $('#topQuery').val();
+		if(query != undefined && query.replace(/^\s+|\s+$/gm, '') != '') {
+			$('#searchForm').submit();
+		} else {
+			alert('검색어를 입력하여 주세요.');
+		}
 		
 	});
+	
+	$("input[name=query]").keydown(function (event) {
+		
+		event.preventDefault();
+		
+		var query = $('#topQuery').val();
+        if(event.keyCode == 13) {
+        	if(query != undefined && query.replace(/^\s+|\s+$/gm, '') != '') {
+        		$('#searchForm').submit();
+        	} else {
+    			alert('검색어를 입력하여 주세요.');
+    		}
+        }
+ 
+    });
 		
 	$('#searchForm').submit(function(event) {
 		
 		event.preventDefault();
 		var query = $('#topQuery').val();
-		
-		if(!doubleSubmitCheck()) {
-		    
-		    if(query != undefined && query.replace(/^\s+|\s+$/gm,'') != '') {
-		    	
-		    	setMyKeyword(query);
-			    this.submit();
-			    
-		    } else {
-		    	
-		    	alert('검색어를 입력하여 주세요.');
-		    	setTimeout(function() { doubleSubmitFlag = false; }, 0);
-		    	
-		    }
-		    
-		} else {
-			return ;
-		}
-		
+		setMyKeyword(query);
+	    this.submit();	
 	    
 	});
 	
