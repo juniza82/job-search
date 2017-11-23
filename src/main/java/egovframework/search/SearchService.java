@@ -26,7 +26,7 @@ public class SearchService {
 	private final static boolean IS_REALTIME_KEYWORD = false;
 	private final static boolean USE_SUGGESTED_QUERY = false;
 
-	private final static String POP_KEYWORDURI_PATH = "/manager/WNRun.do?target=popword&collection=_ALL_&range=D";
+	private final static String POP_KEYWORDURI_PATH = "/manager/WNRun.do?target=popword&collection=_ALL_&range=M";
 
 	private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 
@@ -80,6 +80,10 @@ public class SearchService {
 					
 					field = field.split("/")[0];
 					String result = wnsearch.getField(collection, field, index, false);
+					result.replaceAll("<b>", "");
+					result.replaceAll("<br>", "");
+					result.replaceAll("</b>", "");
+					result.replaceAll("</br>", "");
 					documentMap.put(field, result);
 					
 				});
