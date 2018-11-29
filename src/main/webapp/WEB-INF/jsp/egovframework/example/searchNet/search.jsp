@@ -5,396 +5,582 @@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%><%@
 taglib prefix="spring" uri="http://www.springframework.org/tags"%><%@ 
 taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><%@ 
 taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="ko-KR">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">
-<meta property="og:type" content="website" />
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:url" content=""/>
-<meta property="og:image" content=""/>
-<meta name="description" content="" />
-<meta name="keyword" content="" />
-<title>통합검색</title>
-<link type="image/x-icon" rel="shortcut icon" href="images/favicon.ico">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/base.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/layout.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/font.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/search.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/web/css/responsive.css">
-<script src="${pageContext.request.contextPath}/web/js/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/jquery.cookie.js"></script>
-<script src="${pageContext.request.contextPath}/web/js/search.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>일자리통합정보망 > 통합검색</title>
+
+    <!-- ##### CSS 구역 ##### -->
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webNet/css/base.css?ver=1" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webNet/css/layout.css?ver=1" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webNet/css/content.css?ver=1" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webNet/css/respond/content.css?ver=1" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/webNet/css/respond/layout.css?ver=1" />
+
+    <!-- ##### 기존의 jquery가 필요할꺼 같아서 추가 ##### -->
+    <script src="${pageContext.request.contextPath}/webNet/js/jquery-1.12.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/webNet/js/jquery.cookie.js"></script>
+    <script src="${pageContext.request.contextPath}/webNet/js/search.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="${pageContext.request.contextPath}/webNet/js/html5shiv.js"></script>
+    <![endif]-->
 </head>
-<body id="main">	
-<ul id="skipnavi">
-	<li><a href="#container">본문 바로가기</a></li>
-	<li><a href="#gnb">메뉴 바로가기</a></li>
-</ul>
-이 페이지 디자인 개편
+
+<body>
+
+<div id="skipNav">
+    <a href="#container">본문으로 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
 <div id="wrap">
-	<header id="header">
-		<div class="util">
-			<div class="row">
-				<ul class="top_site">
-					<li><a href="http://job.jeonnam.go.kr" class="current">전라남도일자리종합센터</a></li>					
-					<li><a href="http://www.jeonnam.go.kr" target="_blank" title="새창">전라남도청</a></li>
-					<li><a href="http://www.jepa.kr" target="_blank" title="새창">전라남도중소기업종합지원센터</a></li>
-				</ul>
-				<ul class="top_mem">
-					<li><a href="http://job.jeonnam.go.kr/info/siteMap.do?menuCd=J009004" class="sitemap">사이트맵</a></li>
-				</ul>
-			</div>
-		</div><!--//util -->
-		<div class="head row">
-			<div class="logo fl">
-				<h1><a href="http://job.jeonnam.go.kr" class="shmobilelogo"><img src="${pageContext.request.contextPath}/web/images/common/logo.png" alt=""></a></h1>
-				<span><img src="${pageContext.request.contextPath}/web/images/common/logo_sub.png" alt="생명의 땅, 청년이 돌아오는 전남"></span>
-			</div>
-			<div class="search fr mt10">
-                    <fieldset>
-                        <legend>통합검색</legend>
-                        <label for="topQuery" class="hidden">검색어 입력</label>
-                        <form id="searchForm" action="${pageContext.request.contextPath}/app/search.do" method="get">
-                        	<input type="text" id="topQuery" name="query" title="통합검색" style="ime-mode:active;" class="input" value="${query}">
-                        	<input type="hidden" id="collection" name="collection" value="${collection}"/>
-                        	<input type="hidden" id="paging" name="startCount" value=""/>
-                        	<input type="hidden" id="hiddenQuery" name="hiddenQuery" value="${query}"/>
-                        	<input type="image" id="topSearch" name="topSearch" src="${pageContext.request.contextPath}/web/images/common/btn_search.gif" alt="검색하기" class="btn_search">
-                        </form>
-                    </fieldset>
-                </div>
-		</div>
-		<div id="gnb" class="gnbArea">
-		</div>
-	</header>
-	<div id="container">	
-    	<!--통합검색-->
-        <div id="contents" class="row">
-        	<!--탭메뉴-->
-            <div class="category">
-                <ul>
-                    <li class="totalAreaUlLi<c:if test="${collection eq 'ALL'}"> on</c:if>"><a href="ALL">통합검색</a></li>
-                    <li class="totalAreaUlLi<c:if test="${collection eq 'employmentInformation'}"> on</c:if>"><a class="totalAreaUlLiA" href="employmentInformation">채용정보</a></li>
-                    <li class="totalAreaUlLi<c:if test="${collection eq 'recruitInformation'}"> on</c:if>"><a class="totalAreaUlLiA" href="recruitInformation">인재정보</a></li>
-                    <li class="totalAreaUlLi<c:if test="${collection eq 'educationTraining'}"> on</c:if>"><a class="totalAreaUlLiA" href="educationTraining">교육훈련정보</a></li>
-                    <li class="totalAreaUlLi<c:if test="${collection eq 'localBusiness'}"> on</c:if>"><a class="totalAreaUlLiA" href="localBusiness">지원사업안내</a></li>
-                    <li class="totalAreaUlLi<c:if test="${collection eq 'jobNews'}"> on</c:if>"><a class="totalAreaUlLiA" href="jobNews">일자리뉴스</a></li>
-                </ul>
-            </div>
-            <!--//탭메뉴-->
-        	<div id="contentBody" class="contentBody">
-            	<div class="result_word">
-                    <p>검색어 <span>"${query}"</span>에 대한 <span>총 ${totalCount}건</span>의 검색결과를 찾았습니다.</p>
-                </div>
-            	<div class="resultWrap">
-            		<c:if test="${collection eq 'ALL'}">
-                	<!--통합검색-->
-                    <div class="srchArea total">
-                        <h2>통합검색 <span>(총 ${totalCount}건)</span></h2>
-                        <div class="total_box">
-                            <ul id="totalAreaUl">
-                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="employmentInformation" title="본문결과 이동">채용정보(<c:out value="${collectionCountMap['employmentInformationCount']}"/>)</a></li>
-                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="recruitInformation" title="본문결과 이동">인재정보(<c:out value="${collectionCountMap['recruitInformationCount']}"/>)</a></li>
-                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="educationTraining" title="본문결과 이동">교육훈련정보(<c:out value="${collectionCountMap['educationTrainingCount']}"/>)</a></li>
-                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="localBusiness" title="본문결과 이동">지원사업안내(<c:out value="${collectionCountMap['localBusinessCount']}"/>)</a></li>
-                                <li class="totalAreaUlLi"><a class="totalAreaUlLiA" href="jobNews" title="본문결과 이동">일자리뉴스(<c:out value="${collectionCountMap['jobNewsCount']}"/>)</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['employmentInformationCount'] > 0) || collection eq 'employmentInformation'}">
-                    <!--채용정보-->
-                    <div class="srchArea">
-                        <h2>채용정보 <span>(총 <c:out value="${collectionCountMap['employmentInformationCount']}"/>건)</span></h2>
-                        <c:forEach var="entry" items="${collectionResultMap['employmentInformationResult']}" varStatus="status">
-                        <div class="job_box">
-                        	<dl>
-                            	<dt>
-                                	<a href="/spm/employ/employView.do?menuCd=J001002&nPageSize=20&seekPersonNo=${entry['DOCID']}&listTarget=employ">${entry['COMPANY_NAME']}</a>
-                                    <!-- <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span> -->
-                                </dt>
-                                <dd>
-                                	<p><!--채용제목-->${entry['TITLE']}</p>
-                                    <span><strong>마감일 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['ACCEPT_END_DAY'] eq null || entry['ACCEPT_END_DAY'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['ACCEPT_END_DAY']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                	<span><strong>경력 : </strong>
-                                		<c:choose>
-                                			<c:when test="${entry['CAREER_TERMS'] eq null || entry['CAREER_TERMS'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['CAREER_TERMS']}</c:otherwise>
-                                		</c:choose>
-                                	</span>
-                                    <span><strong>학력 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['NO_EDUCATION'] eq null || entry['NO_EDUCATION'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['NO_EDUCATION']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                    <span><strong>고용형태 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['HIRE_MONEY_TYPE'] eq null || entry['HIRE_MONEY_TYPE'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['HIRE_MONEY_TYPE']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                    <span class="bg_none"><strong>근무지역 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['LOCATION'] eq null || entry['LOCATION'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['LOCATION']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                    <span class="db bg_none"><strong>키워드 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['KEYWORD'] eq null || entry['KEYWORD'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['KEYWORD']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                </dd>                                
-                            </dl>
-							<c:if test="${status.last && collectionCountMap['employmentInformationCount'] > 3 && collection eq 'ALL'}">
-                            <span class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="employmentInformation">검색결과 더보기</a></span>
-                            </c:if>
-                        </div>
-                        </c:forEach>
-                    </div>
-                    <!--//채용정보-->
-                    </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['recruitInformationCount'] > 0) || collection eq 'recruitInformation'}">
-                    <!--인재정보-->
-                    <div class="srchArea">
-                        <h2>인재정보 <span>(총 <c:out value="${collectionCountMap['recruitInformationCount']}"/>건)</span></h2>
-                        <c:forEach var="entry" items="${collectionResultMap['recruitInformationResult']}" varStatus="status">
-                        <div class="job_box">
-                        	<dl>
-                            	<dt>
-                                	<a href="/sjm/applicant/applicantView.do?menuCd=J002002&nPageSize=20&seekJobNo=${entry['DOCID']}&listTarget=applicant"><!--성명-->${entry['USER_NM']}<span class="font_s3">(<c:choose>
-                                			<c:when test="${entry['SEX'] eq 'M'}">남</c:when>
-                                			<c:when test="${entry['SEX'] eq 'F'}">여</c:when>
-                                			<c:otherwise> - </c:otherwise>
-                                		</c:choose>, 만 ${entry['AGE']}세)</span></a>
-                                    <!-- <span class="bookmark ml20"><button type="button" class="btn btn-default sm ic-bookmark" onclick="">관심등록</button></span> -->
-                                </dt>
-                                <dd>
-                                	<p><!--이력서제목-->${entry['TITLE']}</p>
-                                    <span><strong>희망직종 : </strong>${entry['HOPE_WORK_DETAIL']}</span>
-                                	<span><strong>경력 : </strong>
-                                		<c:choose>
-                                			<c:when test="${entry['CAREER_YEAR'] ne null && entry['CAREER_YEAR'] ne '' && entry['CAREER_MONTH'] ne null && entry['CAREER_MONTH'] ne ''}">${entry['CAREER_YEAR']}년 ${entry['CAREER_MONTH']}개월</c:when>
-                                			<c:when test="${entry['CAREER_YEAR'] ne null && entry['CAREER_YEAR'] ne '' && (entry['CAREER_MONTH'] eq null || entry['CAREER_MONTH'] eq '')}">${entry['CAREER_YEAR']}년 0개월</c:when>
-                                			<c:when test="${(entry['CAREER_YEAR'] ne null || entry['CAREER_YEAR'] ne '') && entry['CAREER_MONTH'] ne null && entry['CAREER_MONTH'] ne ''}">0년 ${entry['CAREER_MONTH']}개월</c:when>
-                                			<c:otherwise> - </c:otherwise>
-                                		</c:choose>
-                                	</span>
-                                    <span><strong>학력 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['DEGREE'] eq null || entry['DEGREE'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['DEGREE']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                    <span><strong>희망고용형태 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['HOPE_PAY_TYPE'] eq null || entry['HOPE_PAY_TYPE'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['HOPE_PAY_TYPE']}</c:otherwise>
-                                		</c:choose>
-                                	</span>
-                                    <span class="bg_none"><strong>희망근무지 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['HOPE_LOCATION'] eq null || entry['HOPE_LOCATION'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['HOPE_LOCATION']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                    <span class="db bg_none"><strong>키워드 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['KEYWORD'] eq null || entry['KEYWORD'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['KEYWORD']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                </dd>                               
-                            </dl>
-							<c:if test="${status.last && collectionCountMap['recruitInformationCount'] > 3 && collection eq 'ALL'}">
-                            <span class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="recruitInformation">검색결과 더보기</a></span>
-                            </c:if>
-                        </div>
-                        </c:forEach>
-                    </div>
-                    <!--//인재정보-->
-                    </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['educationTrainingCount'] > 0) || collection eq 'educationTraining'}">
-                    <!--교육훈련정보-->
-                    <div class="srchArea">
-                        <h2>교육훈련 <span>(총 <c:out value="${collectionCountMap['educationTrainingCount']}"/>건)</span></h2>
-                        <c:forEach var="entry" items="${collectionResultMap['educationTrainingResult']}" varStatus="status">
-                        <div class="job_box">
-                        	<dl>
-                            	<dt>
-                                	<a href="/edu/education/educationView.do?menuCd=J003002&nPageSize=20&listTarget=education&eduInfoNo=${entry['DOCID']}"><!--교육훈련기관명-->${entry['INSTITUTION_NAME']}</a>
-                                </dt>
-                                <dd>
-                                	<p><!--교육훈련명-->${entry['TITLE']}</p>
-                                    <span><strong>모집기간 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['RECRUIT_END'] eq null || entry['RECRUIT_END'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['RECRUIT_END']}</c:otherwise>
-                                		</c:choose>
-                                	</span>
-                                	<span><strong>교육정원 : </strong>
-                                		<c:choose>
-                                			<c:when test="${entry['EDU_MAX_COUNT'] eq null || entry['EDU_MAX_COUNT'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['EDU_MAX_COUNT']}명</c:otherwise>
-                                		</c:choose>
-                                	</span>
-                                    <span><strong>교육시간 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['EDU_TIME'] eq null || entry['EDU_TIME'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['EDU_TIME']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                    <span class="bg_none"><strong>교육장소 : </strong>
-                                    	<c:choose>
-                                			<c:when test="${entry['LOCATION'] eq null || entry['LOCATION'] eq ''}"> - </c:when>
-                                			<c:otherwise>${entry['LOCATION']}</c:otherwise>
-                                		</c:choose>
-                                    </span>
-                                </dd>                                	
-                            </dl>
-							<c:if test="${status.last && collectionCountMap['educationTrainingCount'] > 3 && collection eq 'ALL'}">
-                            <span class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="educationTraining">검색결과 더보기</a></span>
-                            </c:if>
-                        </div>
-                        </c:forEach>
-                    </div>
-                    <!--//교육훈련정보-->
-                    </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['localBusinessCount'] > 0) || collection eq 'localBusiness'}">
-                    <!--지원사업안내-->
-                    <div class="srchArea">
-                        <h2>지원사업안내 <span>(총 <c:out value="${collectionCountMap['localBusinessCount']}"/>건)</span></h2>
-                        <div class="txt_box">
-                        	<ul>
-                        		<c:forEach var="entry" items="${collectionResultMap['localBusinessResult']}" varStatus="status">
-                            	<li>
-                                	<!--1-->
-                                	<div class="fl">
-                                    	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
-                                        <a href="<c:choose>
-                                			<c:when test="${entry['ALIAS'] eq 'local_business_bus'}">/spt/bus/busView.do?menuCd=J005005001&hopeBusNo=${entry['DOCID']}</c:when>
-                                			<c:otherwise>/board/${entry['BOARD_ID']}/boardView.do?menuCd=J006001&boardId=${entry['BOARD_ID']}&bdId=${entry['BD_ID']}</c:otherwise>
-                                		</c:choose>">
-                                        	<strong>${entry['TITLE']}</strong>
-                                        </a>
-                                        <span class="fc_gray">${entry['RDATE']}</span>
-                                        <p class="txt_justify">${entry['CONTENT']}</p>
-                                    </div>
-                                    <%-- <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span> --%>
-                                    <!--//1-->
-                                </li>
-								<c:if test="${status.last && collectionCountMap['localBusinessCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="localBusiness">검색결과 더보기</a></li>
-                                </c:if>
-                                </c:forEach>                                
-                            </ul>
-                        </div>
-                    </div>
-                    <!--//지원사업안내-->
-                    </c:if>
-                    <c:if test="${(collection eq 'ALL' && collectionCountMap['jobNewsCount'] > 0) || collection eq 'jobNews'}">
-                    <!--일자리뉴스-->
-                    <div class="srchArea">
-                        <h2>일자리뉴스 <span>(총 <c:out value="${collectionCountMap['jobNewsCount']}"/>건)</span></h2>
-                        <div class="txt_box">
-                        	<ul>
-                        		<c:forEach var="entry" items="${collectionResultMap['jobNewsResult']}" varStatus="status">
-                            	<li>
-                                	<!--1-->
-                                	<div class="fl">
-                                    	<span class="mr3 font_s16">[${entry['BOARD_NM']}]</span>
-                                        <a href="/board/${entry['BOARD_ID']}/boardView.do?menuCd=J006001&boardId=${entry['BOARD_ID']}&bdId=${entry['BD_ID']}">
-                                            <strong><c:choose><c:when test="${entry['TITLE'] eq null || entry['TITLE'] eq ''}">제목이 노출정의 안됨</c:when><c:otherwise>${entry['TITLE']}</c:otherwise></c:choose></strong>
-                                        </a>
-                                        <span class="fc_gray">${entry['RDATE']}</span>
-                                        <p class="txt_justify">${entry['CONTENT']}</p>
-                                    </div>
-                                    <%-- <span class="fr"><img src="${pageContext.request.contextPath}/web/images/content/com_head_bg.jpg" alt=""></span> --%>
-                                    <!--//1-->
-                                </li>
-                                <c:if test="${status.last && collectionCountMap['jobNewsCount'] > 3 && collection eq 'ALL'}">
-                                	<li class="totalAreaUlLi tar more"><a class="totalAreaUlLiA" href="jobNews">검색결과 더보기</a></li>
-                                </c:if>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--//일자리뉴스-->
-                	</c:if>
-                	<c:if test="${totalCount > 10 && collection ne 'ALL'}">
-                	<!--page navigation-->
-					<div class="paging_wrap">
-						<div class="tac">
-							<ul class="pagination">
-								<li class="button previous"><a href="#" title="처음" <c:if test="${startCount ne 0}">onClick="javascript:doPaging('0');"</c:if>><span>처음</span></a></li>
-                                ${paging}
-                                <li class="button next"><a href="#" title="마지막" <c:if test="${totalCount ne 0}">onClick="javascript:doPaging('${lastPaging}');"</c:if>><span>마지막</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--//page navigation-->
-                    </c:if> 
-                </div>
-                <div class="resultAside">
-                	<!--내가찾은 검색어-->
-                    <div class="box" id="myKeywordAreaDiv">
-                        <h2>내가 찾은 검색어</h2>
-                            <ul id="myKeywordArea">
-                                <li><span class="num">1</span><a href="가나다라마바사" class="otherKeyword">가나다라마바사</a></li>
-                                <li><span class="num">2</span><a href="우리나라대한민국" class="otherKeyword">우리나라대한민국</a></li>
-                                <li><span class="num">3</span><a href="전라남도 삼향읍" class="otherKeyword">전라남도 삼향읍</a></li>
-                                <li><span class="num">4</span><a href="후광대로 전라남도청" class="otherKeyword">후광대로 전라남도청</a></li>
-                                <li><span class="num">5</span><a href="전라남도일자리종합센터" class="otherKeyword">전라남도일자리종합센터</a></li>			
-                            </ul>                   
-                    </div>
-                    <!--//내가 찾은 검색어-->
-                    <!--인기 검색어-->
-                    <div class="box popluar">
-                        <h2>인기 검색어</h2>
-                            <ul id="popKeywordAreaDiv">
-                                <c:forEach var="popKeyword" items="${popKeywords}" varStatus="status">
-                                    <li><span class="num">${status.index + 1}</span><a href="${popKeyword}" class="otherKeyword">${popKeyword}</a></li>
-                                </c:forEach>
-                            </ul>                   
-                    </div>
-                    <!--//인기 검색어-->
-                </div>
-            </div>
-        </div>
-        <!--//통합검색-->
-	</div><!-- //container -->
-	<footer id="footer" style="margin-top: 6px;">
-    <div class="row">
-        <div class="copyright fl">
-            <div class="footlogo"><img src="${pageContext.request.contextPath}/web/images/common/logo_foot.png" alt="전라남도일자리종합센터"></div>
-            <ul class="footmenu mb10">
-                <li><a href="http://job.jeonnam.go.kr/content/view.do?menuCd=J008001">센터소개</a></li>
-                <li><a href="http://job.jeonnam.go.kr/content/view.do?menuCd=J009005">회원약관</a></li>
-                <li><a href="http://job.jeonnam.go.kr/content/view.do?menuCd=J009006">개인정보보호정책</a></li>
-                <li><a href="http://job.jeonnam.go.kr/content/view.do?menuCd=J009007">이메일무단수집거부</a></li>
-                <li><a href="http://job.jeonnam.go.kr/info/siteMap.do?menuCd=J009004">사이트맵</a></li>
-                <li><a href="http://job.jeonnam.go.kr/board/JOB_BOARD_0004/boardList.do?menuCd=J007001">고객센터</a></li>
+    <div class="mbg"></div><!--//Mobile Background-->
+    <header id="header" class="start">
+        <div class="util_wrap">
+            <ul class="util_menu">
+                <li class="on"><a href="/"><span class="logo_title"></span>일자리통합정보망</a></li>
+                <li><a href="/" target="_blank" title="새창으로 열림">구인구직</a></li>
+                <li><a href="/" target="_blank" title="새창으로 열림">교육훈련</a></li>
+                <li><a href="/" target="_blank" title="새창으로 열림">일자리지원</a></li>
+                <li><a href="/" target="_blank" title="새창으로 열림">미니잡매칭</a></li>
             </ul>
-            <p>
-                <span class="footaddr">(우)58564 전라남도 무안군 삼향읍 오룡3길 2 중소기업종합지원센터</span>
-                <span class="foottel">대표전화 <strong>061-287-1142~3</strong></span>
-                <span class="footfax">팩스번호 <strong>061-287-1146</strong></span>
-            </p>
-            <p>Copyright © Jeollanam-do. All Rights Reserved.</p>
+        </div>
+        <div class="container">
+            <h1 class="logo"><a href="/"><span class="sr-only">전라남도 교육훈련</span></a></h1>
+        </div>
+    </header>
+    <div id="container">
+        <div id="contents">
+            <!--통합검색-->
+            <div class="total_search">
+                <div class="search_form">
+                    <form>
+                        <fieldset>
+                            <legend>통합검색</legend>
+                            <div class="keyword">
+                                <div class="searchbox">
+                                    <input type="text" name="query" id="topQuery" class="search_box" value="검색하실 키워드를 입력해주세요!" title="검색어를 입력해주세요" onkeydown="if(event.keyCode == 13) commSearchForm.submit();" onfocus="this.value='';return true">
+                                    <button type="submit"><span class="blind">검색</span></button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <p class="ment">&quot;<span class="fc_red"><strong>일자리</strong></span>&quot; 에 대한 전체 <strong>총 <span>847</span> 건</strong>의 결과를 찾았습니다.</p>
+                <div class="result">
+                    <h2 class="hidden">주메뉴</h2>
+                    <menu id="lmb">
+                        <ul class="lm_2th">
+                            <li><a href="#" title="MENU 통합검색 Search"><span>통합검색</span></a></li>
+                            <li><a href="#" class="on" title="MENU 구인구직 Search"><span>구인구직</span></a></li>
+                            <li><a href="#" title="MENU 교육훈련 Search"><span>교육훈련</span></a></li>
+                            <li><a href="#" title="MENU 일자리지원 Search"><span>일자리지원</span></a></li>
+                            <li><a href="#" title="MENU 미니잡매칭 Search"><span>미니잡매칭</span></a></li>
+                        </ul>
+                    </menu>
+                    <div class="item">
+                        <!--통합검색 박스-->
+                        <div class="total_search_box">
+                            <div class="ts_wrap">
+                                <span><span class="em_b_black">구인구직</span> (총 369건)</span>
+                                <ul class="clearfix">
+                                    <li><a href="/">채용정보 (<span class="fc_red">1</span>)</a></li>
+                                    <li><a href="/">공공일자리 (<span class="fc_red">0</span>)</a></li>
+                                    <li><a href="/">공공기관채용정보 (<span class="fc_red">4</span>)</a></li>
+                                    <li><a href="/">공채속보 (<span class="fc_red">364</span>)</a></li>
+                                    <li><a href="/">게시판 (<span class="fc_red">364</span>)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--//통합검색 박스-->
+                        <div class="search_sec">
+                            <h2>채용정보 <span>총 1,1000건</span></h2>
+                            <div class="job_box">
+                                <dl>
+                                    <dt>
+                                        <a href="/">이랜드하당노인복지관</a>
+                                    </dt>
+                                    <dd>
+                                        <p><!--채용제목-->하당노인복지관 노인<!--HS-->일자리<!--HE--> 및 사회활동지원사업 전담...</p>
+                                        <span><strong>마감일 : </strong>2017-12-15(금)</span>
+                                        <span><strong>경력 : </strong>경력무관</span>
+                                        <span><strong>학력 : </strong>고졸 ~ 대졸(4년)</span>
+                                        <span><strong>고용형태 : </strong>월급</span>
+                                        <span class="bg_none"><strong>근무지역 : </strong>전남 목포시</span>
+                                        <span class="db bg_none"><strong>키워드 : </strong>전담인력,노인<!--HS-->일자리</span>
+                                        <em>홈 &gt; 구인구직 &gt; 채용정보</em>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>
+                                        <a href="/">이랜드하당노인복지관</a>
+                                    </dt>
+                                    <dd>
+                                        <p><!--채용제목-->하당노인복지관 노인<!--HS-->일자리<!--HE--> 및 사회활동지원사업 전담...</p>
+                                        <span><strong>마감일 : </strong>2017-12-15(금)</span>
+                                        <span><strong>경력 : </strong>경력무관</span>
+                                        <span><strong>학력 : </strong>고졸 ~ 대졸(4년)</span>
+                                        <span><strong>고용형태 : </strong>월급</span>
+                                        <span class="bg_none"><strong>근무지역 : </strong>전남 목포시</span>
+                                        <span class="db bg_none"><strong>키워드 : </strong>전담인력,노인<!--HS-->일자리</span>
+                                        <em>홈 &gt; 구인구직 &gt; 채용정보</em>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>
+                                        <a href="/">이랜드하당노인복지관</a>
+                                    </dt>
+                                    <dd>
+                                        <p><!--채용제목-->하당노인복지관 노인<!--HS-->일자리<!--HE--> 및 사회활동지원사업 전담...</p>
+                                        <span><strong>마감일 : </strong>2017-12-15(금)</span>
+                                        <span><strong>경력 : </strong>경력무관</span>
+                                        <span><strong>학력 : </strong>고졸 ~ 대졸(4년)</span>
+                                        <span><strong>고용형태 : </strong>월급</span>
+                                        <span class="bg_none"><strong>근무지역 : </strong>전남 목포시</span>
+                                        <span class="db bg_none"><strong>키워드 : </strong>전담인력,노인<!--HS-->일자리</span>
+                                        <em>홈 &gt; 구인구직 &gt; 채용정보</em>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>
+                                        <a href="/">이랜드하당노인복지관</a>
+                                    </dt>
+                                    <dd>
+                                        <p><!--채용제목-->하당노인복지관 노인<!--HS-->일자리<!--HE--> 및 사회활동지원사업 전담...</p>
+                                        <span><strong>마감일 : </strong>2017-12-15(금)</span>
+                                        <span><strong>경력 : </strong>경력무관</span>
+                                        <span><strong>학력 : </strong>고졸 ~ 대졸(4년)</span>
+                                        <span><strong>고용형태 : </strong>월급</span>
+                                        <span class="bg_none"><strong>근무지역 : </strong>전남 목포시</span>
+                                        <span class="db bg_none"><strong>키워드 : </strong>전담인력,노인<!--HS-->일자리</span>
+                                        <em>홈 &gt; 구인구직 &gt; 채용정보</em>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>
+                                        <a href="/">이랜드하당노인복지관</a>
+                                    </dt>
+                                    <dd>
+                                        <p><!--채용제목-->하당노인복지관 노인<!--HS-->일자리<!--HE--> 및 사회활동지원사업 전담...</p>
+                                        <span><strong>마감일 : </strong>2017-12-15(금)</span>
+                                        <span><strong>경력 : </strong>경력무관</span>
+                                        <span><strong>학력 : </strong>고졸 ~ 대졸(4년)</span>
+                                        <span><strong>고용형태 : </strong>월급</span>
+                                        <span class="bg_none"><strong>근무지역 : </strong>전남 목포시</span>
+                                        <span class="db bg_none"><strong>키워드 : </strong>전담인력,노인<!--HS-->일자리</span>
+                                        <em>홈 &gt; 구인구직 &gt; 채용정보</em>
+                                    </dd>
+                                </dl>
+                                <span class="TxtR"><a href="employmentInformation">채용정보 검색결과 더보기 +</a></span>
+                            </div>
+                            <h2>공공일자리 <span>총 1,1000건</span></h2>
+                            <div class="job_box">
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공일자리</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공일자리</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공일자리</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공일자리</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공일자리</em>
+                                    </li>
+                                </ul>
+                                <span class="TxtR"><a href="employmentInformation">공공일자리 검색결과 더보기 +</a></span>
+                            </div>
+                            <h2>공공기관채용정보 <span>총 1,1000건</span></h2>
+                            <div class="job_box">
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공기관채용정보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공기관채용정보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공기관채용정보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공기관채용정보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공공기관채용정보</em>
+                                    </li>
+                                </ul>
+                                <span class="TxtR"><a href="employmentInformation">공공기관채용정보 검색결과 더보기 +</a></span>
+                            </div>
+                            <h2>공채속보 <span>총 1,1000건</span></h2>
+                            <div class="job_box">
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공채속보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공채속보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공채속보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공채속보</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 공채속보</em>
+                                    </li>
+                                </ul>
+                                <span class="TxtR"><a href="employmentInformation">공채속보 검색결과 더보기 +</a></span>
+                            </div>
+                            <h2>게시판 <span>총 1,1000건</span></h2>
+                            <div class="job_box">
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 게시판</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 게시판</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 게시판</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 게시판</em>
+                                    </li>
+                                </ul>
+                                <ul class="img_list">
+                                    <li>
+                                        <a href="/" title="" target="_blank">
+                                            <span class="title">[공지사항]<strong>2014년 전라남도 일자리 취업 박람회 개최</strong></span>
+                                            <span class="date">2018.10.11</span>
+                                            <p>행사명 : 2017년 전남동부권 <!--HS-->일자리<!--HE--> 박람회 일 시 : 2017. 11. 16(목) 10:00~17:00 장 소 : 순천팔마체육관 주 최 : 여수고용노동지청, 전라남도, 광양만권경제자유구역청,한국산업단지공단여수광양지사,전남테크노파크 주 관 : 광양만권<!--HS-->일자리<!--HE-->사업단 ※ 자세한 사항은 첨부파일 및 http://2017jnjobfair.com/ 으로 문의 바랍니다.
+                                            </p>
+                                        </a>
+                                        <em>홈 &gt; 구인구직 &gt; 게시판</em>
+                                    </li>
+                                </ul>
+                                <span class="TxtR"><a href="employmentInformation">게시판 검색결과 더보기 +</a></span>
+                            </div>
+                        </div>
+                        <!--페이징-->
+                        <div class="paging_wrap">
+                            <div class="tac">
+                                <ul class="pagination">
+                                    <li class="paginate_button active"><a href="#" title="현재" class="on">1</a></li>
+                                    <li class="paginate_button"><a href="#" title="다음" onclick="goBdPage(2); return false;">2</a>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--//페이징-->
+                    </div>
+                    <article class="rangking">
+                        <!--랭킹메뉴-->
+                        <article class="group">
+                            <h3>내가 찾은 검색어</h3>
+                            <ul class="list">
+                                <li>
+                                    <small>1</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>일자리</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </article>
+                        <article class="group">
+                            <h3>많이 찾는 메뉴</h3>
+                            <ul class="list">
+                                <li>
+                                    <small>1</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>교육훈련 &gt; 지원제도</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>2</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>구인구직 &gt; 게시판</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>3</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>일자리지원 &gt; 마을로</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>4</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>구인구직 &gt; 채용공고</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>5</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>구인구직 &gt; 게시판</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </article>
+                        <article class="group">
+                            <h3>인기검색어</h3>
+                            <ul class="menu">
+                                <li class="on"><a href="#daily">일간</a></li>
+                                <li><a href="#weekly">주간</a></li>
+                            </ul>
+                            <ul class="list">
+                                <li>
+                                    <small>1</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>박람회</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>2</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>사무직</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>3</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>사무직</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>4</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>사무직</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>5</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>사무직</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </article>
+                        <article class="group">
+                            <h3>실시간 검색어</h3>
+                            <ul class="list">
+                                <li>
+                                    <small>1</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>박람회</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>2</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>도시기본계획</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>3</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>채용공고</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>4</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>봉사</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <small>5</small>
+                                    <a href="javascript:;" onclick="">
+                                        <span>임대주택</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </article>
+                        <!--//랭킹메뉴-->
+                    </article>
+                </div>
+            </div>
+            <!--//통합검색-->
         </div>
     </div>
-</footer>    
-</div><!-- //wrap -->
+    <footer id="footer">
+        <div class="footWrap">
+            <ul class="linkArea">
+                <li><a href="/" target="_blank" title="새창으로 열림">개인정보보호정책</a></li>
+                <li><a href="/" target="_blank" title="새창으로 열림">이메일무단수집거부</a></li>
+                <li><a href="/" target="_blank" title="새창으로 열림">회원약관</a></li>
+            </ul>
+            <aside class="relate_site">
+                <div>
+                    <a href="#" class="button">관련사이트 바로가기<span></span></a>
+                    <ul style="display: none;">
+                        <li><a href="http://www.jeonnam.go.kr" target="_blank" title="새창으로 열림">전라남도청</a></li>
+                        <li><a href="http://www.jepa.kr/" target="_blank" title="새창으로 열림">전라남도 중소기업진흥원</a></li>
+                    </ul>
+                </div>
+            </aside>
+            <div class="footer_box">
+                <span class="logo"><img src="${pageContext.request.contextPath}/webNet/images/common/f_logo.png" alt="일자리통합정보망"></span>
+                <div class="footer_link">
+                    <address>(우)58565 전라남도 무안군 삼향읍 오룡1길 37 (1층)    /   대표전화 061-287-1142~3     /   팩스번호 061-287-1146</address>
+                    <p class="copyright">COPYRIGHT(C) 2018 Jeollanam-do. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#wrap" class="topBt over" title="본문상단으로 이동">TOP</a>
+</div>
+
 </body>
 </html>
